@@ -27,7 +27,7 @@ public class LogUtilTest {
 	public void test() {
 		Log4jUtils log = new Log4jUtils(LogUtilTest.class);
 		log.log(LogLevel.INFO, "log测试");
-		log.log(LogLevel.INFO, "log测数据", new Throwable("异常了"));
+		log.log(LogLevel.ERROR, "log测数据", new Throwable("异常了"));
 	}
 
 }

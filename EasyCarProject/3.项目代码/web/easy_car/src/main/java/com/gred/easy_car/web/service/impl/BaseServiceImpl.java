@@ -54,7 +54,7 @@ public class BaseServiceImpl<M,PK extends Serializable> implements BaseService<M
 	@Override
 	public int save(M entity) {
 		
-		return baseMapper.insert(entity);
+		return baseMapper.insertSelective(entity);
 	}
 
 	/* 
@@ -67,7 +67,7 @@ public class BaseServiceImpl<M,PK extends Serializable> implements BaseService<M
 	@Override
 	public int modify(M entity) {
 		
-		return baseMapper.update(entity);
+		return baseMapper.updateByPrimaryKeySelective(entity);
 	}
 
 	/* 
@@ -93,7 +93,7 @@ public class BaseServiceImpl<M,PK extends Serializable> implements BaseService<M
 	@Override
 	public int remove(PK primaryKey) {
 		
-		return baseMapper.delete(primaryKey);
+		return baseMapper.deleteByPrimaryKey(primaryKey);
 	}
 
 	/* 
@@ -154,7 +154,7 @@ public class BaseServiceImpl<M,PK extends Serializable> implements BaseService<M
 	 */   
 	@Override
 	public M get(PK primaryKey) {
-		return baseMapper.get(primaryKey);
+		return baseMapper.selectByPrimaryKey(primaryKey);
 	}
 
 	/* 

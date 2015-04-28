@@ -29,14 +29,14 @@ public interface BaseMapper<T,PK extends Serializable> {
      * @param entity 
      * @return 影响记录条数 
      */  
-    public abstract int insert(T entity);  
+    public abstract int insertSelective(T entity);  
       
     /**  
      * 修改一个实体对象（UPDATE一条记录）  
      * @param entity 实体对象  
      * @return 修改的对象个数，正常情况=1  
      */    
-    public abstract int update(T entity);    
+    public abstract int updateByPrimaryKeySelective(T entity);    
         
     /**  
      * 修改符合条件的记录  
@@ -52,7 +52,7 @@ public interface BaseMapper<T,PK extends Serializable> {
      * @param primaryKey 主键对象  
      * @return 删除的对象个数，正常情况=1  
      */    
-    public abstract int delete(PK primaryKey);    
+    public abstract int deleteByPrimaryKey(PK primaryKey);    
     
     /**  
      * 删除符合条件的记录  
@@ -87,7 +87,7 @@ public interface BaseMapper<T,PK extends Serializable> {
      * @param primaryKey 主键值  
      * @return 记录实体对象，如果没有符合主键条件的记录，则返回null  
      */    
-    public abstract T get(PK primaryKey);    
+    public abstract T selectByPrimaryKey(PK primaryKey);    
     
     /**  
      * 取全部记录  

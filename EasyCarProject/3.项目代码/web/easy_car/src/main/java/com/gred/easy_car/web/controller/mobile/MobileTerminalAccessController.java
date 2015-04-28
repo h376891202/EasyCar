@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.gred.easy_car.common.constant.SMSInterfaceInfo;
 import com.gred.easy_car.common.constant.SMSInvokeResult;
 import com.gred.easy_car.common.enums.LogLevel;
+import com.gred.easy_car.common.utils.EHCacheUtils;
 import com.gred.easy_car.common.utils.HttpUtils;
 import com.gred.easy_car.common.utils.Log4jUtils;
 import com.gred.easy_car.common.utils.RandomNumberUtils;
@@ -38,8 +39,8 @@ import com.gred.easy_car.common.utils.RandomNumberUtils;
 @RequestMapping(value="mobile")
 public class MobileTerminalAccessController {
 	
-	
-	
+	/**EH缓存XML配置文件中配置的缓存*/
+	private  final String IDENTIFYING_CODE_CACHE = "SMSCodeCache";
 	
 	private static final Log4jUtils log = new Log4jUtils(MobileTerminalAccessController.class);
 	
@@ -48,6 +49,7 @@ public class MobileTerminalAccessController {
 
 	@RequestMapping(value="/register",method=RequestMethod.POST)
 	public  String mobileTerminalRegister(HttpServletRequest request){
+		
 		
 		return null;
 	}
@@ -59,8 +61,8 @@ public class MobileTerminalAccessController {
 		//生成六位数随机验证码 
 		identifyingCode=RandomNumberUtils.generateRandomNumber(6);
 		
-		//保存验证码到session中，用于验证
-		
+		//保存验证码到EHCache中，用于验证
+		EHCacheUtils.putElementToCache(IDENTIFYING_CODE_CACHE, mobileNumber, identifyingCode);
 		
 		Map<String, String> params = new HashMap<>();
 		params.put("username", SMSInterfaceInfo.SMS_USERNAME);
