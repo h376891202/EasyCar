@@ -10,4 +10,9 @@
 
 @interface UserInfo : NSObject
 
+@property(nonatomic) BOOL isLogin;
+
+
++(UserInfo *)defaultUserInfo;
+
 @end

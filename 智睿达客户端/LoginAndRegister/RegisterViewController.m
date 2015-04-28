@@ -7,15 +7,25 @@
 //
 
 #import "RegisterViewController.h"
-
+#import "RegisterView.h"
 @interface RegisterViewController ()
+{
+    RegisterView *_registerView;
+}
 
 @end
 
 @implementation RegisterViewController
 
+- (void)dealloc
+{
+    [_registerView removeFromSuperview];
+    _registerView = nil;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self initializeAppearance];
     // Do any additional setup after loading the view.
 }
 
@@ -24,14 +34,19 @@
     // Dispose of any resources that can be recreated.
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+- (void)initializeAppearance
+{
+    _registerView = [[[NSBundle mainBundle]loadNibNamed:@"Register" owner:nil options:nil]lastObject];
+    _registerView.frame = CGRectMake(0, 0, SCREEN_Width, SCREEN_Height);
+    [_registerView.backButton addTarget:self action:@selector(backLastViewcontroller) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:_registerView];
 }
-*/
+
+
+//返回上一级菜单
+- (void)backLastViewcontroller
+{
+    [self.navigationController popViewControllerAnimated:YES];
+}
 
 @end

@@ -10,4 +10,8 @@
 
 @interface RegisterModel : NSObject
 
+@property (nonatomic,strong) NSString *userPhone;
+@property (nonatomic,strong) NSString *password;
+@property (nonatomic,strong) NSString *vertifyCode;
+
 @end

@@ -10,4 +10,10 @@
 
 @implementation UIView (ViewClass)
 
+- (void)setLayerType
+{
+    self.layer.borderWidth = 1;
+    self.layer.borderColor = [UIColor lightGrayColor].CGColor;
+}
+
 @end

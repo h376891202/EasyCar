@@ -10,4 +10,30 @@
 
 @interface LoginView : UIView
 
+
+@property (strong, nonatomic) IBOutlet UIButton *findPasswordButton;
+
+@property (strong, nonatomic) IBOutlet UIView *passwordView;
+
+
+@property (strong, nonatomic) IBOutlet UIButton *loginButton;
+
+
+@property (strong, nonatomic) IBOutlet UITextField *passwordTextField;
+
+
+@property (strong, nonatomic) IBOutlet UITextField *phoneTextField;
+
+
+@property (strong, nonatomic) IBOutlet UIView *phoneView;
+
+
+@property (strong, nonatomic) IBOutlet UIButton *registerButton;
+
+
+@property (strong, nonatomic) IBOutlet UIButton *backButton;
+
+@property (strong, nonatomic) IBOutlet UILabel *titleLabel;
+
+
 @end

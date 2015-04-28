@@ -10,4 +10,6 @@
 
 @interface UIButton (buttonClass)
 
+- (void)setButtonImageStyle;
+
 @end

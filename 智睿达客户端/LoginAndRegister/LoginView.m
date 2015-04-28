@@ -10,6 +10,14 @@
 
 @implementation LoginView
 
+- (void)awakeFromNib
+{
+    [_backButton setImage:IMAGE(@"narrow.png") forState:UIControlStateNormal];
+    [_backButton setButtonImageStyle];
+    [_phoneView setLayerType];
+    [_passwordView setLayerType];
+}
+
 /*
 // Only override drawRect: if you perform custom drawing.
 // An empty implementation adversely affects performance during animation.

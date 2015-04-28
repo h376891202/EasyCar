@@ -8,6 +8,26 @@
 
 #import "UserInfo.h"
 
+static UserInfo *userInfo = nil;
+
 @implementation UserInfo
+
++ (UserInfo *)defaultUserInfo
+{
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken ,^{
+        userInfo = [[UserInfo alloc]init];
+    });
+    return userInfo;
+}
+
+- (instancetype)init
+{
+    self = [self init];
+    if (self) {
+        _isLogin = NO;
+    }
+    return self;
+}
 
 @end

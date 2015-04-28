@@ -7,8 +7,13 @@
 //
 
 #import "LoginViewController.h"
-
+#import "LoginView.h"
+#import "RegisterViewController.h"
 @interface LoginViewController ()
+{
+    LoginView *_loginView;
+}
+
 
 @end
 
@@ -16,6 +21,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self initializeAppearance];
     // Do any additional setup after loading the view.
 }
 
@@ -24,14 +30,20 @@
     // Dispose of any resources that can be recreated.
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+- (void)initializeAppearance
+{
+    _loginView = [[[NSBundle mainBundle]loadNibNamed:@"Login" owner:nil options:nil]lastObject];
+    _loginView.frame = CGRectMake(0, 0, SCREEN_Width, SCREEN_Height);
+    [_loginView.registerButton addTarget:self action:@selector(goRegister) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:_loginView];
 }
-*/
+
+//进入注册页面
+
+- (void)goRegister
+{
+    RegisterViewController *registerVc = [[RegisterViewController alloc]init];
+    [self.navigationController pushViewController:registerVc animated:YES];
+}
 
 @end

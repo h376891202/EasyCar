@@ -10,4 +10,16 @@
 
 @implementation RegisterView
 
+
+- (void)awakeFromNib
+{
+    [_phoneView setLayerType];
+    [_vertifyView setLayerType];
+    [_passwordView setLayerType];
+    [_confirmPasswordView setLayerType];
+    _vertifyButton.layer.cornerRadius = 14*NOW_SIZE;
+    [_backButton setImage:IMAGE(@"narrow.png") forState:UIControlStateNormal];
+    [_backButton setButtonImageStyle];
+}
+
 @end

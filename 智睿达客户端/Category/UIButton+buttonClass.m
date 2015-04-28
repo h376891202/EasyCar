@@ -10,4 +10,10 @@
 
 @implementation UIButton (buttonClass)
 
+- (void)setButtonImageStyle
+{
+    self.imageEdgeInsets = UIEdgeInsetsMake(10*NOW_SIZE, 10*NOW_SIZE, 13*NOW_SIZE, 34*NOW_SIZE);
+   
+}
+
 @end

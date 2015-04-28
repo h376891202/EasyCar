@@ -6,8 +6,8 @@
 //  Copyright (c) 2015年 tony1220. All rights reserved.
 //
 
-#import "ViewModelClass.h"
+#import <UIKit/UIKit.h>
 
-@interface FindPasswordView : ViewModelClass
+@interface FindPasswordView : UIView
 
 @end

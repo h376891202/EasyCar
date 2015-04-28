@@ -10,4 +10,7 @@
 
 @interface FindPasswordModel : NSObject
 
+@property (nonatomic,strong) NSString *userPhone;
+@property (nonatomic,strong) NSString *vertifyCode;
+
 @end
