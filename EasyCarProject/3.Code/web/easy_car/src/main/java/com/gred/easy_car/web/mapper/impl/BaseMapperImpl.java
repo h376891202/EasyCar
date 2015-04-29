@@ -9,6 +9,8 @@
 package com.gred.easy_car.web.mapper.impl;
 
 import java.io.Serializable;
+import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
@@ -26,7 +28,7 @@ import org.mybatis.spring.support.SqlSessionDaoSupport;
 
 import com.gred.easy_car.common.enums.LogLevel;
 import com.gred.easy_car.common.utils.Log4jUtils;
-import com.gred.easy_car.web.entity.PageEntity;
+import com.gred.easy_car.web.entity.Page;
 import com.gred.easy_car.web.entity.PagingResult;
 import com.gred.easy_car.web.mapper.BaseMapper;
 
@@ -38,14 +40,14 @@ import com.gred.easy_car.web.mapper.BaseMapper;
  *
  */
 
-public class BaseMapperImpl <T, PK extends Serializable> extends SqlSessionDaoSupport implements
+public abstract class BaseMapperImpl <T, PK extends Serializable> extends SqlSessionDaoSupport implements
 		BaseMapper<T, PK> {
 
-	Log4jUtils log = new Log4jUtils(this.getClass());
+	private static final	Log4jUtils log = new Log4jUtils(BaseMapperImpl.class);
 	
-	/**sql mapper中定义的namespace**/
-	private String namespace;
+	private static final String MAPPER_LOCATION ="com.gred.easy_car.web.mapper" ;
 	
+	private Class<T> clazz;
 	
 	/**sqlmap.xml定义文件中对应的sqlid**/  
     public static final String SQLID_INSERT = "insertSelective";  
@@ -70,21 +72,71 @@ public class BaseMapperImpl <T, PK extends Serializable> extends SqlSessionDaoSu
         super.setSqlSessionTemplate(sqlSessionTemplate);  
     }  
     
-    
-    
-    
-    public String getNamespace() {  
-        return namespace;  
-    }  
   
-    public void setNamespace(String namespace) {  
-        this.namespace = namespace;  
+    @SuppressWarnings("unchecked")
+	protected BaseMapperImpl(){
+    	 //getClass() 返回表示此 Class 所表示的实体（类、接口、基本类型或 void）的超类的 Class。  
+        this.clazz=(Class<T>)getSuperClassGenricType(getClass(), 0);
+        
+        this.namespace = getDefaultNameSpace();
     }
+   
+	/**
+     * 获取 SqlMapping 的命名空间
+     */
+    protected String namespace  ;
+    
 
 
+	/**
+	 * @Title: getDefaultNameSpace   
+	 * @Description: TODO(这里用一句话描述这个方法的作用)   
+	 * @param @return    
+	 * @return String    返回类型   
+	 * @throws   
+	 */
+	private String getDefaultNameSpace() {
+		String entityName = clazz.getSimpleName();
+		
+		return MAPPER_LOCATION+"."+entityName+"Mapper";
+	}
 
-
-	/* (非 Javadoc)   
+    /** 
+     * 通过反射, 获得定义Class时声明的父类的泛型参数的类型. 如无法找到, 返回Object.class. 
+     *  
+     *@param clazz 
+     *            clazz The class to introspect 
+     * @param index 
+     *            the Index of the generic ddeclaration,start from 0. 
+     * @return the index generic declaration, or Object.class if cannot be 
+     *         determined 
+     */  
+    @SuppressWarnings({ "unchecked", "rawtypes" })  
+    public static Class<Object> getSuperClassGenricType(final Class clazz, final int index) {  
+          
+        //返回表示此 Class 所表示的实体（类、接口、基本类型或 void）的直接超类的 Type。  
+        Type genType = clazz.getGenericSuperclass();  
+  
+        if (!(genType instanceof ParameterizedType)) {  
+           return Object.class;  
+        }  
+        //返回表示此类型实际类型参数的 Type 对象的数组。  
+        Type[] params = ((ParameterizedType) genType).getActualTypeArguments();  
+  
+        if (index >= params.length || index < 0) {  
+                     return Object.class;  
+        }  
+        if (!(params[index] instanceof Class)) {  
+              return Object.class;  
+        }  
+  
+        return (Class) params[index];  
+    }  
+	
+	
+	
+	
+	/* 
 	 * <p>Title: insert</p>   
 	 * <p>Description: </p>   
 	 * @param entity
@@ -94,6 +146,7 @@ public class BaseMapperImpl <T, PK extends Serializable> extends SqlSessionDaoSu
 	@Override
 	public int insertSelective(T entity) {
 		
+		
 		int rows = 0;  
         try {  
             rows = getSqlSession().insert(namespace + "." + SQLID_INSERT, entity);  
@@ -102,6 +155,9 @@ public class BaseMapperImpl <T, PK extends Serializable> extends SqlSessionDaoSu
         }  
         return rows;  
 	}
+
+
+
 
 
 
@@ -329,7 +385,7 @@ public class BaseMapperImpl <T, PK extends Serializable> extends SqlSessionDaoSu
 	 * @see com.gred.easy_car.web.mapper.BaseMapper#selectPagination(com.gred.easy_car.web.entity.PageEntity)   
 	 */   
 	@Override
-	public PagingResult<T> selectPagination(PageEntity pageEntity) {
+	public PagingResult<T> selectPagination(Page pageEntity) {
 		try {  
             int page = pageEntity.getPage() == null || "".equals(pageEntity.getPage()) ? 1 : pageEntity.getPage(); //默认为第一页  
             int size = pageEntity.getSize() == null || "".equals(pageEntity.getSize()) ? 15 : pageEntity.getSize();; //默认每页15个  

@@ -15,7 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.gred.easy_car.web.entity.UserEntity;
+import com.gred.easy_car.web.entity.User;
 import com.gred.easy_car.web.mapper.UserMapper;
 
 
@@ -36,11 +36,11 @@ public class DaoTest {
 	@Test
 	public void test() {
 		
-		UserEntity user = new UserEntity();
-		user.setUserId("xxxxx");
-		user.setUserMobile("12154213");
-		user.setUserPwd("xxxxxxx");
-		user.setUserRegisterTime("xxxxxxx");
+		User user = new User();
+		user.setUserId("xxx");
+		user.setUserMobile("12154213ss");
+		user.setUserPwd("xxxxxxxxx");
+		user.setUserRegisterTime("xxxxx");
 		userMapperImpl.insertSelective(user);
 		
 	}

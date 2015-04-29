@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.gred.easy_car.web.mapper.CarMapper" >
-  <resultMap id="BaseResultMap" type="com.gred.easy_car.web.entity.CarEntity" >
+  <resultMap id="BaseResultMap" type="com.gred.easy_car.web.entity.Car" >
     <id column="car_id" property="carId" jdbcType="VARCHAR" />
     <result column="car_owner_id" property="carOwnerId" jdbcType="VARCHAR" />
     <result column="car_owner_mobile" property="carOwnerMobile" jdbcType="VARCHAR" />
@@ -24,7 +24,7 @@
     delete from ezc_car
     where car_id = #{carId,jdbcType=VARCHAR}
   </delete>
-  <insert id="insert" parameterType="com.gred.easy_car.web.entity.CarEntity" >
+  <insert id="insert" parameterType="com.gred.easy_car.web.entity.Car" >
     insert into ezc_car (car_id, car_owner_id, car_owner_mobile, 
       car_brand, car_brand_type, car_plate_number, 
       car_travelled_distance)
@@ -32,7 +32,7 @@
       #{carBrand,jdbcType=VARCHAR}, #{carBrandType,jdbcType=VARCHAR}, #{carPlateNumber,jdbcType=VARCHAR}, 
       #{carTravelledDistance,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.gred.easy_car.web.entity.CarEntity" >
+  <insert id="insertSelective" parameterType="com.gred.easy_car.web.entity.Car" >
     insert into ezc_car
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="carId != null" >
@@ -81,7 +81,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.gred.easy_car.web.entity.CarEntity" >
+  <update id="updateByPrimaryKeySelective" parameterType="com.gred.easy_car.web.entity.Car" >
     update ezc_car
     <set >
       <if test="carOwnerId != null" >
@@ -105,7 +105,7 @@
     </set>
     where car_id = #{carId,jdbcType=VARCHAR}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.gred.easy_car.web.entity.CarEntity" >
+  <update id="updateByPrimaryKey" parameterType="com.gred.easy_car.web.entity.Car" >
     update ezc_car
     set car_owner_id = #{carOwnerId,jdbcType=VARCHAR},
       car_owner_mobile = #{carOwnerMobile,jdbcType=VARCHAR},

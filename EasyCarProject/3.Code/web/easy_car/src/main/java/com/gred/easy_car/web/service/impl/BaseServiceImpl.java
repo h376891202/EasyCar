@@ -16,7 +16,7 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
-import com.gred.easy_car.web.entity.PageEntity;
+import com.gred.easy_car.web.entity.Page;
 import com.gred.easy_car.web.entity.PagingResult;
 import com.gred.easy_car.web.mapper.BaseMapper;
 import com.gred.easy_car.web.service.BaseService;
@@ -188,7 +188,7 @@ public class BaseServiceImpl<M,PK extends Serializable> implements BaseService<M
 	 * @see com.gred.easy_car.web.service.impl.BaseService#listPagination(com.gred.easy_car.web.entity.PageEntity)   
 	 */   
 	@Override
-	public PagingResult<M> listPagination(PageEntity param) {
+	public PagingResult<M> listPagination(Page param) {
 		return baseMapper.selectPagination(param);
 	}
 

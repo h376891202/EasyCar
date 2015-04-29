@@ -12,7 +12,7 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
 
-import com.gred.easy_car.web.entity.PageEntity;
+import com.gred.easy_car.web.entity.Page;
 import com.gred.easy_car.web.entity.PagingResult;
 
 /**
@@ -107,7 +107,7 @@ public interface BaseService<M,PK extends Serializable> {
      * @param param 查询条件参数，包括WHERE条件、分页条件、排序条件  
      * @return PaginationResult对象，包括（符合条件的）总记录数、页实体对象List等  
      */    
-    public abstract PagingResult<M> listPagination(PageEntity param);    
+    public abstract PagingResult<M> listPagination(Page param);    
         
     /**  
      * 批量插入  

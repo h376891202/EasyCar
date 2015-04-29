@@ -17,7 +17,7 @@ import java.util.Map;
  * @date 2015年4月25日 下午3:08:55   
  *
  */
-public class PageEntity {
+public class Page {
 	
 	/**目前第几页**/
 	private Integer page; 

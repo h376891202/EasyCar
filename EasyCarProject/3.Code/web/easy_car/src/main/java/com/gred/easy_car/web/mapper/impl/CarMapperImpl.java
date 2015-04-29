@@ -10,7 +10,7 @@ package com.gred.easy_car.web.mapper.impl;
 
 import org.springframework.stereotype.Repository;
 
-import com.gred.easy_car.web.entity.CarEntity;
+import com.gred.easy_car.web.entity.Car;
 import com.gred.easy_car.web.mapper.CarMapper;
 
 /**
@@ -21,6 +21,7 @@ import com.gred.easy_car.web.mapper.CarMapper;
  *
  */
 @Repository
-public class CarMapperImpl extends BaseMapperImpl<CarEntity, Integer> implements CarMapper{
+public class CarMapperImpl extends BaseMapperImpl<Car, Integer> implements CarMapper{
+
 
 }

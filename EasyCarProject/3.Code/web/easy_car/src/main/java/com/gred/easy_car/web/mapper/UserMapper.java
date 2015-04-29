@@ -8,7 +8,7 @@
  */
 package com.gred.easy_car.web.mapper;
 
-import com.gred.easy_car.web.entity.UserEntity;
+import com.gred.easy_car.web.entity.User;
 
 /**
  * @ClassName: UserMapper   
@@ -17,6 +17,6 @@ import com.gred.easy_car.web.entity.UserEntity;
  * @date 2015年4月29日 下午2:17:35   
  *
  */
-public interface UserMapper extends BaseMapper<UserEntity, Integer>{
+public interface UserMapper extends BaseMapper<User, Integer>{
 
 }

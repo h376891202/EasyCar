@@ -15,7 +15,7 @@ package com.gred.easy_car.web.entity;
  * @date 2015年4月29日 下午2:05:33
  * 
  */
-public class CarEntity {
+public class Car {
 	
 	
 	/**车辆UUID*/
