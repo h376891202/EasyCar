@@ -21,7 +21,7 @@ import com.gred.easy_car.web.mapper.CarMapper;
  *
  */
 @Repository
-public class CarMapperImpl extends BaseMapperImpl<Car, Integer> implements CarMapper{
+public class CarMapperImpl extends BaseMapperImpl<Car, String> implements CarMapper{
 
 
 }

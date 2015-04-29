@@ -17,6 +17,6 @@ import com.gred.easy_car.web.entity.Car;
  * @date 2015年4月29日 下午2:28:06   
  *
  */
-public interface CarMapper extends BaseMapper<Car, Integer>{
+public interface CarMapper extends BaseMapper<Car, String>{
 
 }

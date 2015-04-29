@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.gred.easy_car.web.mapper.UserMapper" >
-  <resultMap id="BaseResultMap" type="com.gred.easy_car.web.entity.User" >
+<mapper namespace="com.gred.easy_car.web.mapper.CarOwnerMapper" >
+  <resultMap id="BaseResultMap" type="com.gred.easy_car.web.entity.CarOwner" >
     <id column="user_id" property="userId" jdbcType="VARCHAR" />
     <result column="user_mobile" property="userMobile" jdbcType="VARCHAR" />
     <result column="user_pwd" property="userPwd" jdbcType="VARCHAR" />
@@ -13,21 +13,21 @@
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 
     <include refid="Base_Column_List" />
-    from ezc_user
+    from ezc_car_owner
     where user_id = #{userId,jdbcType=VARCHAR}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
-    delete from ezc_user
+    delete from ezc_car_owner
     where user_id = #{userId,jdbcType=VARCHAR}
   </delete>
-  <insert id="insert" parameterType="com.gred.easy_car.web.entity.User" >
-    insert into ezc_user (user_id, user_mobile, user_pwd, 
+  <insert id="insert" parameterType="com.gred.easy_car.web.entity.CarOwner" >
+    insert into ezc_car_owner (user_id, user_mobile, user_pwd, 
       user_register_time)
     values (#{userId,jdbcType=VARCHAR}, #{userMobile,jdbcType=VARCHAR}, #{userPwd,jdbcType=VARCHAR}, 
       #{userRegisterTime,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.gred.easy_car.web.entity.User" >
-    insert into ezc_user
+  <insert id="insertSelective" parameterType="com.gred.easy_car.web.entity.CarOwner" >
+    insert into ezc_car_owner
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="userId != null" >
         user_id,
@@ -57,8 +57,8 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.gred.easy_car.web.entity.User" >
-    update ezc_user
+  <update id="updateByPrimaryKeySelective" parameterType="com.gred.easy_car.web.entity.CarOwner" >
+    update ezc_car_owner
     <set >
       <if test="userMobile != null" >
         user_mobile = #{userMobile,jdbcType=VARCHAR},
@@ -72,8 +72,8 @@
     </set>
     where user_id = #{userId,jdbcType=VARCHAR}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.gred.easy_car.web.entity.User" >
-    update ezc_user
+  <update id="updateByPrimaryKey" parameterType="com.gred.easy_car.web.entity.CarOwner" >
+    update ezc_car_owner
     set user_mobile = #{userMobile,jdbcType=VARCHAR},
       user_pwd = #{userPwd,jdbcType=VARCHAR},
       user_register_time = #{userRegisterTime,jdbcType=VARCHAR}

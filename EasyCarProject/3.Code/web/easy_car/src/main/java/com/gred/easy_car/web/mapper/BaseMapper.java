@@ -97,7 +97,7 @@ public interface BaseMapper<T,PK extends Serializable> {
      * 取全部记录  
      * @return 全部记录实体对象的List  
      */    
-    public abstract List<T> select();    
+    public abstract List<T> selectAll();    
         
     /**  
      * 按条件查询记录  

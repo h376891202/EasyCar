@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gred.easy_car.web.mapper.SystemErrorMessageMapper" >
+  <resultMap id="BaseResultMap" type="com.gred.easy_car.web.entity.SystemErrorMessage" >
+    <id column="error_code" property="errorCode" jdbcType="INTEGER" />
+    <result column="error_message" property="errorMessage" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    error_code, error_message
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from ezc_system_error_code
+    where error_code = #{errorCode,jdbcType=INTEGER}
+  </select>
+  
+   <select id="selectAll" resultMap="BaseResultMap"  >
+    select 
+    <include refid="Base_Column_List" />
+    from ezc_system_error_code
+   
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from ezc_system_error_code
+    where error_code = #{errorCode,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.gred.easy_car.web.entity.SystemErrorMessage" >
+    insert into ezc_system_error_code (error_code, error_message)
+    values (#{errorCode,jdbcType=INTEGER}, #{errorMessage,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.gred.easy_car.web.entity.SystemErrorMessage" >
+    insert into ezc_system_error_code
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="errorCode != null" >
+        error_code,
+      </if>
+      <if test="errorMessage != null" >
+        error_message,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="errorCode != null" >
+        #{errorCode,jdbcType=INTEGER},
+      </if>
+      <if test="errorMessage != null" >
+        #{errorMessage,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.gred.easy_car.web.entity.SystemErrorMessage" >
+    update ezc_system_error_code
+    <set >
+      <if test="errorMessage != null" >
+        error_message = #{errorMessage,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where error_code = #{errorCode,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.gred.easy_car.web.entity.SystemErrorMessage" >
+    update ezc_system_error_code
+    set error_message = #{errorMessage,jdbcType=VARCHAR}
+    where error_code = #{errorCode,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -14,7 +14,9 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.gred.easy_car.web.entity.Page;
 import com.gred.easy_car.web.entity.PagingResult;
@@ -32,8 +34,8 @@ import com.gred.easy_car.web.service.BaseService;
 
 public class BaseServiceImpl<M,PK extends Serializable> implements BaseService<M,PK > {
 
-	
-	private BaseMapper<M,PK > baseMapper;
+	@Autowired
+	protected BaseMapper<M,PK > baseMapper;
 	
 	
 
@@ -51,6 +53,7 @@ public class BaseServiceImpl<M,PK extends Serializable> implements BaseService<M
 	 * @return   
 	 * @see com.gred.easy_car.web.service.impl.BaseService#save(java.lang.Object)   
 	 */   
+	@Transactional
 	@Override
 	public int save(M entity) {
 		
@@ -64,6 +67,7 @@ public class BaseServiceImpl<M,PK extends Serializable> implements BaseService<M
 	 * @return   
 	 * @see com.gred.easy_car.web.service.impl.BaseService#modify(java.lang.Object)   
 	 */   
+	@Transactional
 	@Override
 	public int modify(M entity) {
 		
@@ -77,6 +81,7 @@ public class BaseServiceImpl<M,PK extends Serializable> implements BaseService<M
 	 * @return   
 	 * @see com.gred.easy_car.web.service.impl.BaseService#modifyParam(java.util.Map)   
 	 */   
+	@Transactional
 	@Override
 	public int modifyParam(Map param) {
 		
@@ -91,6 +96,7 @@ public class BaseServiceImpl<M,PK extends Serializable> implements BaseService<M
 	 * @see com.gred.easy_car.web.service.impl.BaseService#remove(java.io.Serializable)   
 	 */   
 	@Override
+	@Transactional
 	public int remove(PK primaryKey) {
 		
 		return baseMapper.deleteByPrimaryKey(primaryKey);
@@ -104,6 +110,7 @@ public class BaseServiceImpl<M,PK extends Serializable> implements BaseService<M
 	 * @see com.gred.easy_car.web.service.impl.BaseService#removeParam(java.util.Map)   
 	 */   
 	@Override
+	@Transactional
 	public int removeParam(Map param) {
 		
 		return baseMapper.deleteParam(param);
@@ -116,6 +123,7 @@ public class BaseServiceImpl<M,PK extends Serializable> implements BaseService<M
 	 * @see com.gred.easy_car.web.service.impl.BaseService#truncate()   
 	 */   
 	@Override
+	@Transactional
 	public int truncate() {
 		
 		return baseMapper.truncate();
@@ -165,7 +173,7 @@ public class BaseServiceImpl<M,PK extends Serializable> implements BaseService<M
 	 */   
 	@Override
 	public List<M> listAll() {
-		return baseMapper.select();
+		return baseMapper.selectAll();
 	}
 
 	/* 
@@ -200,6 +208,7 @@ public class BaseServiceImpl<M,PK extends Serializable> implements BaseService<M
 	 * @see com.gred.easy_car.web.service.impl.BaseService#batchSave(java.util.List)   
 	 */   
 	@Override
+	@Transactional
 	public int batchSave(List<M> list) {
 		return baseMapper.insertBatch(list);
 	}
@@ -212,6 +221,7 @@ public class BaseServiceImpl<M,PK extends Serializable> implements BaseService<M
 	 * @see com.gred.easy_car.web.service.impl.BaseService#batchUpdate(java.util.List)   
 	 */   
 	@Override
+	@Transactional
 	public int batchUpdate(List<M> list) {
 		return baseMapper.updateBatch(list);
 	}
@@ -224,6 +234,7 @@ public class BaseServiceImpl<M,PK extends Serializable> implements BaseService<M
 	 * @see com.gred.easy_car.web.service.impl.BaseService#batchDelete(java.util.List)   
 	 */   
 	@Override
+	@Transactional
 	public int batchDelete(List<PK> list) {
 		return baseMapper.deleteBatch(list);
 	}

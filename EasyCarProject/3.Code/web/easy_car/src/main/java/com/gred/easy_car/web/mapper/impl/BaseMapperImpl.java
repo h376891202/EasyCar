@@ -25,6 +25,7 @@ import org.apache.ibatis.session.Configuration;
 import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.mybatis.spring.support.SqlSessionDaoSupport;
+import org.springframework.stereotype.Repository;
 
 import com.gred.easy_car.common.enums.LogLevel;
 import com.gred.easy_car.common.utils.Log4jUtils;
@@ -40,6 +41,7 @@ import com.gred.easy_car.web.mapper.BaseMapper;
  *
  */
 
+@Repository
 public abstract class BaseMapperImpl <T, PK extends Serializable> extends SqlSessionDaoSupport implements
 		BaseMapper<T, PK> {
 
@@ -59,7 +61,7 @@ public abstract class BaseMapperImpl <T, PK extends Serializable> extends SqlSes
     public static final String SQLID_DELETE_PARAM = "deleteParam";  
     public static final String SQLID_DELETE_BATCH = "deleteBatch";  
     public static final String SQLID_TRUNCATE = "truncate";  
-    public static final String SQLID_SELECT = "select";  
+    public static final String SQLID_SELECT = "selectAll";  
     public static final String SQLID_SELECT_PK = "selectByPrimaryKey";  
     public static final String SQLID_SELECT_PARAM = "selectParam";  
     public static final String SQLID_SELECT_FK = "selectFk";  
@@ -90,7 +92,7 @@ public abstract class BaseMapperImpl <T, PK extends Serializable> extends SqlSes
 
 	/**
 	 * @Title: getDefaultNameSpace   
-	 * @Description: TODO(这里用一句话描述这个方法的作用)   
+	 * @Description: 获取mapper默认命名空间（mapper所属包+实体名+Mapper后缀）   
 	 * @param @return    
 	 * @return String    返回类型   
 	 * @throws   
@@ -343,7 +345,7 @@ public abstract class BaseMapperImpl <T, PK extends Serializable> extends SqlSes
 	 * @see com.gred.easy_car.web.mapper.BaseMapper#select()   
 	 */   
 	@Override
-	public List<T> select() {
+	public List<T> selectAll() {
 		
 		try {  
             return getSqlSession().selectList(namespace + "." + SQLID_SELECT);  

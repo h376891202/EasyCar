@@ -10,8 +10,8 @@ package com.gred.easy_car.web.mapper.impl;
 
 import org.springframework.stereotype.Repository;
 
-import com.gred.easy_car.web.entity.User;
-import com.gred.easy_car.web.mapper.UserMapper;
+import com.gred.easy_car.web.entity.CarOwner;
+import com.gred.easy_car.web.mapper.CarOwnerMapper;
 
 /**
  * @ClassName: UserMapperImpl   
@@ -21,7 +21,7 @@ import com.gred.easy_car.web.mapper.UserMapper;
  *
  */
 @Repository
-public class UserMapperImpl extends BaseMapperImpl<User, Integer> implements UserMapper{
+public class CarOwnerMapperImpl extends BaseMapperImpl<CarOwner, String> implements CarOwnerMapper{
 
 
 
