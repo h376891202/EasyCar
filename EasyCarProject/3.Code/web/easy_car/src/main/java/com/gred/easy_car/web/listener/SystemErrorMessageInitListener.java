@@ -18,6 +18,7 @@ import javax.servlet.ServletContextListener;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.gred.easy_car.common.utils.EHCacheUtils;
 import com.gred.easy_car.web.entity.SystemErrorMessage;
 import com.gred.easy_car.web.service.SystemErrorMessageService;
 
@@ -30,8 +31,8 @@ import com.gred.easy_car.web.service.SystemErrorMessageService;
  */
 public class SystemErrorMessageInitListener implements ServletContextListener{
 
-	/**系统错误信息map，key=错误码，value=错误信息*/
-	public static Map<Integer, String>  systemErrorMessageMap = new HashMap<Integer, String>();
+	/**系统错误信息缓存，key=错误码，value=错误信息*/
+	private final String ERROR_MESSAGE_CACHE = "ErrorMessageCache";
 	
 	@Autowired
 	private SystemErrorMessageService systemErrorMessageService;
@@ -47,7 +48,8 @@ public class SystemErrorMessageInitListener implements ServletContextListener{
 		
 		List<SystemErrorMessage> systemErrorMessage =  systemErrorMessageService.listAll();
 		for(SystemErrorMessage errorMessage : systemErrorMessage){
-			systemErrorMessageMap.put(errorMessage.getErrorCode(), errorMessage.getErrorMessage());
+			//存入EH缓存
+			EHCacheUtils.putElementToCache(ERROR_MESSAGE_CACHE, errorMessage.getErrorCode(), errorMessage.getErrorMessage());
 		}
 		
 	}

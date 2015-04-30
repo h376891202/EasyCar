@@ -18,15 +18,15 @@ package com.gred.easy_car.web.entity;
 public class SystemErrorMessage {
 	 
 		/**错误码*/
-		private Integer errorCode;
+		private String errorCode;
 		/**错误信息*/
 	    private String errorMessage;
 
-	    public Integer getErrorCode() {
+	    public String getErrorCode() {
 	        return errorCode;
 	    }
 
-	    public void setErrorCode(Integer errorCode) {
+	    public void setErrorCode(String errorCode) {
 	        this.errorCode = errorCode;
 	    }
 

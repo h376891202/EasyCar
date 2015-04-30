@@ -1,103 +1,135 @@
-/**
- * @Title: CarEntity.java   
- * @Package com.gred.easy_car.web.entity   
- * @Description: (用一句话描述该文件做什么)   
- * @author WangJianbin     
- * @date 2015年4月29日 下午2:05:33   
- * @version V2.0     
- */
 package com.gred.easy_car.web.entity;
 
-/**
- * @ClassName: CarEntity
- * @Description: 车辆信息实体
- * @author WangJianbin
- * @date 2015年4月29日 下午2:05:33
- * 
- */
+import java.math.BigDecimal;
+
 public class Car {
-	
-	
-	/**车辆UUID*/
-	private String carId;
-	
-	/**车主UUID*/
-	private String carOwnerId;
-	
-	/**车主移动电话*/
-	private String carOwnerMobile;
-	
-	/**车辆品牌*/
-	private String carBrand;
-	
-	/**车型*/
-	private String carBrandType;
-	
-	/**车牌号*/
-	private String carPlateNumber;
-	
-	/**行驶里程*/
-	private String carTravelledDistance;
-	
-	
+    private String carId;
 
-	public String getCarId() {
-		return carId;
-	}
+    private String carOwnerId;
 
-	public void setCarId(String carId) {
-		this.carId = carId == null ? null : carId.trim();
-	}
+    private String carBrandId;
 
-	public String getCarOwnerId() {
-		return carOwnerId;
-	}
+    private String carBrandTypeId;
 
-	public void setCarOwnerId(String carOwnerId) {
-		this.carOwnerId = carOwnerId == null ? null : carOwnerId.trim();
-	}
+    private String carOwnerMobile;
 
-	public String getCarOwnerMobile() {
-		return carOwnerMobile;
-	}
+    private String carBrand;
 
-	public void setCarOwnerMobile(String carOwnerMobile) {
-		this.carOwnerMobile = carOwnerMobile == null ? null : carOwnerMobile
-				.trim();
-	}
+    private String carBrandType;
 
-	public String getCarBrand() {
-		return carBrand;
-	}
+    private String carPlateNumber;
 
-	public void setCarBrand(String carBrand) {
-		this.carBrand = carBrand == null ? null : carBrand.trim();
-	}
+    private BigDecimal carTravelledDistance;
 
-	public String getCarBrandType() {
-		return carBrandType;
-	}
+    private String carPosition;
 
-	public void setCarBrandType(String carBrandType) {
-		this.carBrandType = carBrandType == null ? null : carBrandType.trim();
-	}
+    private String carProvince;
 
-	public String getCarPlateNumber() {
-		return carPlateNumber;
-	}
+    private String carCity;
 
-	public void setCarPlateNumber(String carPlateNumber) {
-		this.carPlateNumber = carPlateNumber == null ? null : carPlateNumber
-				.trim();
-	}
+    private Integer carIsServicing;
 
-	public String getCarTravelledDistance() {
-		return carTravelledDistance;
-	}
+    public String getCarId() {
+        return carId;
+    }
 
-	public void setCarTravelledDistance(String carTravelledDistance) {
-		this.carTravelledDistance = carTravelledDistance == null ? null
-				: carTravelledDistance.trim();
-	}
+    public void setCarId(String carId) {
+        this.carId = carId == null ? null : carId.trim();
+    }
 
+    public String getCarOwnerId() {
+        return carOwnerId;
+    }
+
+    public void setCarOwnerId(String carOwnerId) {
+        this.carOwnerId = carOwnerId == null ? null : carOwnerId.trim();
+    }
+
+    public String getCarBrandId() {
+        return carBrandId;
+    }
+
+    public void setCarBrandId(String carBrandId) {
+        this.carBrandId = carBrandId == null ? null : carBrandId.trim();
+    }
+
+    public String getCarBrandTypeId() {
+        return carBrandTypeId;
+    }
+
+    public void setCarBrandTypeId(String carBrandTypeId) {
+        this.carBrandTypeId = carBrandTypeId == null ? null : carBrandTypeId.trim();
+    }
+
+    public String getCarOwnerMobile() {
+        return carOwnerMobile;
+    }
+
+    public void setCarOwnerMobile(String carOwnerMobile) {
+        this.carOwnerMobile = carOwnerMobile == null ? null : carOwnerMobile.trim();
+    }
+
+    public String getCarBrand() {
+        return carBrand;
+    }
+
+    public void setCarBrand(String carBrand) {
+        this.carBrand = carBrand == null ? null : carBrand.trim();
+    }
+
+    public String getCarBrandType() {
+        return carBrandType;
+    }
+
+    public void setCarBrandType(String carBrandType) {
+        this.carBrandType = carBrandType == null ? null : carBrandType.trim();
+    }
+
+    public String getCarPlateNumber() {
+        return carPlateNumber;
+    }
+
+    public void setCarPlateNumber(String carPlateNumber) {
+        this.carPlateNumber = carPlateNumber == null ? null : carPlateNumber.trim();
+    }
+
+    public BigDecimal getCarTravelledDistance() {
+        return carTravelledDistance;
+    }
+
+    public void setCarTravelledDistance(BigDecimal carTravelledDistance) {
+        this.carTravelledDistance = carTravelledDistance;
+    }
+
+    public String getCarPosition() {
+        return carPosition;
+    }
+
+    public void setCarPosition(String carPosition) {
+        this.carPosition = carPosition == null ? null : carPosition.trim();
+    }
+
+    public String getCarProvince() {
+        return carProvince;
+    }
+
+    public void setCarProvince(String carProvince) {
+        this.carProvince = carProvince == null ? null : carProvince.trim();
+    }
+
+    public String getCarCity() {
+        return carCity;
+    }
+
+    public void setCarCity(String carCity) {
+        this.carCity = carCity == null ? null : carCity.trim();
+    }
+
+    public Integer getCarIsServicing() {
+        return carIsServicing;
+    }
+
+    public void setCarIsServicing(Integer carIsServicing) {
+        this.carIsServicing = carIsServicing;
+    }
 }

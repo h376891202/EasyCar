@@ -8,14 +8,13 @@
  */
 package com.gred.easy_car.web.controller.mobile;
 
+import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
-import javax.validation.constraints.NotNull;
 
-import org.springframework.http.HttpRequest;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -27,6 +26,7 @@ import com.gred.easy_car.common.utils.EHCacheUtils;
 import com.gred.easy_car.common.utils.HttpUtils;
 import com.gred.easy_car.common.utils.Log4jUtils;
 import com.gred.easy_car.common.utils.RandomNumberUtils;
+import com.gred.easy_car.web.entity.JsonResult;
 
 /**
  * @ClassName: MobileTerminalAccessController   
@@ -41,14 +41,50 @@ public class MobileTerminalAccessController {
 	
 	/**EH缓存XML配置文件中配置的缓存*/
 	private  final String IDENTIFYING_CODE_CACHE = "SMSCodeCache";
+	private final String ERROR_MESSAGE_CACHE = "ErrorMessageCache";
 	
 	private static final Log4jUtils log = new Log4jUtils(MobileTerminalAccessController.class);
+	
+	private SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSSXXX");
 	
 	/**短信验证码*/
 	private String identifyingCode = null;
 
+	
 	@RequestMapping(value="/register",method=RequestMethod.POST)
-	public  String mobileTerminalRegister(HttpServletRequest request){
+	public  JsonResult<Object> mobileTerminalRegister(HttpServletRequest request){
+
+		String smsCode = request.getParameter("identifyingCode").trim();
+		String userMobile = request.getParameter("userMobile");
+		String  password = request.getParameter("password");
+		String  carBrand = request.getParameter("carBrand");
+		String  carBrandType = request.getParameter("carBrandType");
+		String  carPlateNumber = request.getParameter("carPlateNumber");
+		String  carTravelledDistance = request.getParameter("carTravelledDistance");
+		
+		JsonResult<Object> result = new JsonResult<>();
+		
+		//获取缓存中的六位短信验证码进行校验
+		String smsCodeInCache = (String) EHCacheUtils.getElementValueFromCache(IDENTIFYING_CODE_CACHE, userMobile);
+		if(StringUtils.isEmpty(smsCodeInCache)){
+		//保证之前已经存入缓存的前提下 为空则说明已经失效
+			result.setStatus(201);
+			String message = (String) EHCacheUtils.getElementValueFromCache(ERROR_MESSAGE_CACHE, "201");
+			result.setStatusMessage(message);
+			log.log(LogLevel.INFO, "【移动端注册模块】：新用户注册，短信验证码验证失败："+message);
+			
+			return result;
+		}else if(!smsCodeInCache.equals(smsCode)){
+			//用户输入验证码和发送验证码不匹配
+			result.setStatus(202);
+			String message = (String) EHCacheUtils.getElementValueFromCache(ERROR_MESSAGE_CACHE, "202");
+			result.setStatusMessage(message);
+			log.log(LogLevel.INFO, "【移动端注册模块】：新用户注册，短信验证码验证失败："+message);
+			
+			return result;
+		}
+		
+		
 		
 		
 		return null;

@@ -47,11 +47,11 @@ public class DaoTest {
 	@Test
 	public void carOwnertest() {
 		
-		CarOwner user = new CarOwner();
-		user.setUserId("xxxcccccccc");
-		user.setUserMobile("12154213ss");
-		user.setUserPwd("xxxxxxxxx");
-		user.setUserRegisterTime("xxxxx");
+		CarOwner carOwner = new CarOwner();
+		carOwner.setUserId("xxxcccccccc");
+		carOwner.setUserMobile("12154213ss");
+		carOwner.setUserPwd("xxxxxxxxx");
+		carOwner.setUserRegisterTime("xxxxx");
 		//userMapperImpl.insertSelective(user);
 		CarOwner carowner=userMapperImpl.selectByPrimaryKey("xxxcccccccc");
 		System.out.println(carowner.getUserId());
@@ -67,8 +67,7 @@ public class DaoTest {
 		car.setCarBrandType("307");
 		car.setCarOwnerId("xxxcccccccc");
 		car.setCarPlateNumber("50789");
-		car.setCarTravelledDistance("12454km");
-		carMapper.insertSelective(car);
+	
 		//Car cara = carMapper.selectByPrimaryKey("xxxx");
 		
 		
