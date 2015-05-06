@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gred.easy_car.web.mapper.CarCurrentPositionMapper" >
+  <resultMap id="BaseResultMap" type="com.gred.easy_car.web.entity.CarCurrentPosition" >
+    <id column="car_id" property="carId" jdbcType="VARCHAR" />
+    <id column="driver_id" property="driverId" jdbcType="VARCHAR" />
+    <result column="car_plate_number" property="carPlateNumber" jdbcType="VARCHAR" />
+    <result column="order_id" property="orderId" jdbcType="VARCHAR" />
+    <result column="order_number" property="orderNumber" jdbcType="VARCHAR" />
+    <result column="driver_name" property="driverName" jdbcType="VARCHAR" />
+    <result column="car_start_position" property="carStartPosition" jdbcType="VARCHAR" />
+    <result column="car_driver_start_time" property="carDriverStartTime" jdbcType="VARCHAR" />
+    <result column="car_driver_finisht_time" property="carDriverFinishtTime" jdbcType="VARCHAR" />
+    <result column="car_driver_destination" property="carDriverDestination" jdbcType="VARCHAR" />
+    <result column="car_current_position" property="carCurrentPosition" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    car_id, driver_id, car_plate_number, order_id, order_number, driver_name, car_start_position, 
+    car_driver_start_time, car_driver_finisht_time, car_driver_destination, car_current_position
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.gred.easy_car.web.entity.CarCurrentPositionKey" >
+    select 
+    <include refid="Base_Column_List" />
+    from ezc_car_current_position
+    where car_id = #{carId,jdbcType=VARCHAR}
+      and driver_id = #{driverId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.gred.easy_car.web.entity.CarCurrentPositionKey" >
+    delete from ezc_car_current_position
+    where car_id = #{carId,jdbcType=VARCHAR}
+      and driver_id = #{driverId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.gred.easy_car.web.entity.CarCurrentPosition" >
+    insert into ezc_car_current_position (car_id, driver_id, car_plate_number, 
+      order_id, order_number, driver_name, 
+      car_start_position, car_driver_start_time, car_driver_finisht_time, 
+      car_driver_destination, car_current_position
+      )
+    values (#{carId,jdbcType=VARCHAR}, #{driverId,jdbcType=VARCHAR}, #{carPlateNumber,jdbcType=VARCHAR}, 
+      #{orderId,jdbcType=VARCHAR}, #{orderNumber,jdbcType=VARCHAR}, #{driverName,jdbcType=VARCHAR}, 
+      #{carStartPosition,jdbcType=VARCHAR}, #{carDriverStartTime,jdbcType=VARCHAR}, #{carDriverFinishtTime,jdbcType=VARCHAR}, 
+      #{carDriverDestination,jdbcType=VARCHAR}, #{carCurrentPosition,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.gred.easy_car.web.entity.CarCurrentPosition" >
+    insert into ezc_car_current_position
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="carId != null" >
+        car_id,
+      </if>
+      <if test="driverId != null" >
+        driver_id,
+      </if>
+      <if test="carPlateNumber != null" >
+        car_plate_number,
+      </if>
+      <if test="orderId != null" >
+        order_id,
+      </if>
+      <if test="orderNumber != null" >
+        order_number,
+      </if>
+      <if test="driverName != null" >
+        driver_name,
+      </if>
+      <if test="carStartPosition != null" >
+        car_start_position,
+      </if>
+      <if test="carDriverStartTime != null" >
+        car_driver_start_time,
+      </if>
+      <if test="carDriverFinishtTime != null" >
+        car_driver_finisht_time,
+      </if>
+      <if test="carDriverDestination != null" >
+        car_driver_destination,
+      </if>
+      <if test="carCurrentPosition != null" >
+        car_current_position,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="carId != null" >
+        #{carId,jdbcType=VARCHAR},
+      </if>
+      <if test="driverId != null" >
+        #{driverId,jdbcType=VARCHAR},
+      </if>
+      <if test="carPlateNumber != null" >
+        #{carPlateNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="orderId != null" >
+        #{orderId,jdbcType=VARCHAR},
+      </if>
+      <if test="orderNumber != null" >
+        #{orderNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="driverName != null" >
+        #{driverName,jdbcType=VARCHAR},
+      </if>
+      <if test="carStartPosition != null" >
+        #{carStartPosition,jdbcType=VARCHAR},
+      </if>
+      <if test="carDriverStartTime != null" >
+        #{carDriverStartTime,jdbcType=VARCHAR},
+      </if>
+      <if test="carDriverFinishtTime != null" >
+        #{carDriverFinishtTime,jdbcType=VARCHAR},
+      </if>
+      <if test="carDriverDestination != null" >
+        #{carDriverDestination,jdbcType=VARCHAR},
+      </if>
+      <if test="carCurrentPosition != null" >
+        #{carCurrentPosition,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.gred.easy_car.web.entity.CarCurrentPosition" >
+    update ezc_car_current_position
+    <set >
+      <if test="carPlateNumber != null" >
+        car_plate_number = #{carPlateNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="orderId != null" >
+        order_id = #{orderId,jdbcType=VARCHAR},
+      </if>
+      <if test="orderNumber != null" >
+        order_number = #{orderNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="driverName != null" >
+        driver_name = #{driverName,jdbcType=VARCHAR},
+      </if>
+      <if test="carStartPosition != null" >
+        car_start_position = #{carStartPosition,jdbcType=VARCHAR},
+      </if>
+      <if test="carDriverStartTime != null" >
+        car_driver_start_time = #{carDriverStartTime,jdbcType=VARCHAR},
+      </if>
+      <if test="carDriverFinishtTime != null" >
+        car_driver_finisht_time = #{carDriverFinishtTime,jdbcType=VARCHAR},
+      </if>
+      <if test="carDriverDestination != null" >
+        car_driver_destination = #{carDriverDestination,jdbcType=VARCHAR},
+      </if>
+      <if test="carCurrentPosition != null" >
+        car_current_position = #{carCurrentPosition,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where car_id = #{carId,jdbcType=VARCHAR}
+      and driver_id = #{driverId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.gred.easy_car.web.entity.CarCurrentPosition" >
+    update ezc_car_current_position
+    set car_plate_number = #{carPlateNumber,jdbcType=VARCHAR},
+      order_id = #{orderId,jdbcType=VARCHAR},
+      order_number = #{orderNumber,jdbcType=VARCHAR},
+      driver_name = #{driverName,jdbcType=VARCHAR},
+      car_start_position = #{carStartPosition,jdbcType=VARCHAR},
+      car_driver_start_time = #{carDriverStartTime,jdbcType=VARCHAR},
+      car_driver_finisht_time = #{carDriverFinishtTime,jdbcType=VARCHAR},
+      car_driver_destination = #{carDriverDestination,jdbcType=VARCHAR},
+      car_current_position = #{carCurrentPosition,jdbcType=VARCHAR}
+    where car_id = #{carId,jdbcType=VARCHAR}
+      and driver_id = #{driverId,jdbcType=VARCHAR}
+  </update>
+</mapper>

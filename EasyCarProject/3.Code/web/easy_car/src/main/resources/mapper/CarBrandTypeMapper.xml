@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gred.easy_car.web.mapper.CarBrandTypeMapper" >
+  <resultMap id="BaseResultMap" type="com.gred.easy_car.web.entity.CarBrandType" >
+    <id column="car_brand_type_id" property="carBrandTypeId" jdbcType="VARCHAR" />
+    <result column="car_brand_id" property="carBrandId" jdbcType="VARCHAR" />
+    <result column="car_brand_name" property="carBrandName" jdbcType="VARCHAR" />
+    <result column="car_brand_type_name" property="carBrandTypeName" jdbcType="VARCHAR" />
+    <result column="car_brand_type_brand_id" property="carBrandTypeBrandId" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    car_brand_type_id, car_brand_id, car_brand_name, car_brand_type_name, car_brand_type_brand_id
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from ezc_car_brand_type
+    where car_brand_type_id = #{carBrandTypeId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from ezc_car_brand_type
+    where car_brand_type_id = #{carBrandTypeId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.gred.easy_car.web.entity.CarBrandType" >
+    insert into ezc_car_brand_type (car_brand_type_id, car_brand_id, car_brand_name, 
+      car_brand_type_name, car_brand_type_brand_id)
+    values (#{carBrandTypeId,jdbcType=VARCHAR}, #{carBrandId,jdbcType=VARCHAR}, #{carBrandName,jdbcType=VARCHAR}, 
+      #{carBrandTypeName,jdbcType=VARCHAR}, #{carBrandTypeBrandId,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.gred.easy_car.web.entity.CarBrandType" >
+    insert into ezc_car_brand_type
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="carBrandTypeId != null" >
+        car_brand_type_id,
+      </if>
+      <if test="carBrandId != null" >
+        car_brand_id,
+      </if>
+      <if test="carBrandName != null" >
+        car_brand_name,
+      </if>
+      <if test="carBrandTypeName != null" >
+        car_brand_type_name,
+      </if>
+      <if test="carBrandTypeBrandId != null" >
+        car_brand_type_brand_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="carBrandTypeId != null" >
+        #{carBrandTypeId,jdbcType=VARCHAR},
+      </if>
+      <if test="carBrandId != null" >
+        #{carBrandId,jdbcType=VARCHAR},
+      </if>
+      <if test="carBrandName != null" >
+        #{carBrandName,jdbcType=VARCHAR},
+      </if>
+      <if test="carBrandTypeName != null" >
+        #{carBrandTypeName,jdbcType=VARCHAR},
+      </if>
+      <if test="carBrandTypeBrandId != null" >
+        #{carBrandTypeBrandId,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.gred.easy_car.web.entity.CarBrandType" >
+    update ezc_car_brand_type
+    <set >
+      <if test="carBrandId != null" >
+        car_brand_id = #{carBrandId,jdbcType=VARCHAR},
+      </if>
+      <if test="carBrandName != null" >
+        car_brand_name = #{carBrandName,jdbcType=VARCHAR},
+      </if>
+      <if test="carBrandTypeName != null" >
+        car_brand_type_name = #{carBrandTypeName,jdbcType=VARCHAR},
+      </if>
+      <if test="carBrandTypeBrandId != null" >
+        car_brand_type_brand_id = #{carBrandTypeBrandId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where car_brand_type_id = #{carBrandTypeId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.gred.easy_car.web.entity.CarBrandType" >
+    update ezc_car_brand_type
+    set car_brand_id = #{carBrandId,jdbcType=VARCHAR},
+      car_brand_name = #{carBrandName,jdbcType=VARCHAR},
+      car_brand_type_name = #{carBrandTypeName,jdbcType=VARCHAR},
+      car_brand_type_brand_id = #{carBrandTypeBrandId,jdbcType=VARCHAR}
+    where car_brand_type_id = #{carBrandTypeId,jdbcType=VARCHAR}
+  </update>
+</mapper>

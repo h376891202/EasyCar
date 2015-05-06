@@ -12,7 +12,7 @@ import com.gred.easy_car.web.entity.SystemErrorMessage;
 
 /**
  * @ClassName: SystemErrorMessageService   
- * @Description: TODO(这里用一句话描述这个类的作用)   
+ * @Description: 系统错误表service层接口   
  * @author WangJianbin  
  * @date 2015年4月30日 下午2:12:15   
  *

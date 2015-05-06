@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gred.easy_car.web.mapper.ServiceAdvisorMapper" >
+  <resultMap id="BaseResultMap" type="com.gred.easy_car.web.entity.ServiceAdvisor" >
+    <id column="advisor_id" property="advisorId" jdbcType="VARCHAR" />
+    <result column="_4s_service_id" property="_4sServiceId" jdbcType="VARCHAR" />
+    <result column="advisor_login_name" property="advisorLoginName" jdbcType="VARCHAR" />
+    <result column="advisor_password" property="advisorPassword" jdbcType="VARCHAR" />
+    <result column="advisor_real_name" property="advisorRealName" jdbcType="VARCHAR" />
+    <result column="advisor_mobile" property="advisorMobile" jdbcType="VARCHAR" />
+    <result column="advisor_is_discard" property="advisorIsDiscard" jdbcType="INTEGER" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.gred.easy_car.web.entity.ServiceAdvisor" extends="BaseResultMap" >
+    <result column="advisor_head_portrait" property="advisorHeadPortrait" jdbcType="LONGVARBINARY" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    advisor_id, _4s_service_id, advisor_login_name, advisor_password, advisor_real_name, 
+    advisor_mobile, advisor_is_discard
+  </sql>
+  <sql id="Blob_Column_List" >
+    advisor_head_portrait
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from ezc_service_advisor
+    where advisor_id = #{advisorId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from ezc_service_advisor
+    where advisor_id = #{advisorId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.gred.easy_car.web.entity.ServiceAdvisor" >
+    insert into ezc_service_advisor (advisor_id, _4s_service_id, advisor_login_name, 
+      advisor_password, advisor_real_name, advisor_mobile, 
+      advisor_is_discard, advisor_head_portrait
+      )
+    values (#{advisorId,jdbcType=VARCHAR}, #{_4sServiceId,jdbcType=VARCHAR}, #{advisorLoginName,jdbcType=VARCHAR}, 
+      #{advisorPassword,jdbcType=VARCHAR}, #{advisorRealName,jdbcType=VARCHAR}, #{advisorMobile,jdbcType=VARCHAR}, 
+      #{advisorIsDiscard,jdbcType=INTEGER}, #{advisorHeadPortrait,jdbcType=LONGVARBINARY}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.gred.easy_car.web.entity.ServiceAdvisor" >
+    insert into ezc_service_advisor
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="advisorId != null" >
+        advisor_id,
+      </if>
+      <if test="_4sServiceId != null" >
+        _4s_service_id,
+      </if>
+      <if test="advisorLoginName != null" >
+        advisor_login_name,
+      </if>
+      <if test="advisorPassword != null" >
+        advisor_password,
+      </if>
+      <if test="advisorRealName != null" >
+        advisor_real_name,
+      </if>
+      <if test="advisorMobile != null" >
+        advisor_mobile,
+      </if>
+      <if test="advisorIsDiscard != null" >
+        advisor_is_discard,
+      </if>
+      <if test="advisorHeadPortrait != null" >
+        advisor_head_portrait,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="advisorId != null" >
+        #{advisorId,jdbcType=VARCHAR},
+      </if>
+      <if test="_4sServiceId != null" >
+        #{_4sServiceId,jdbcType=VARCHAR},
+      </if>
+      <if test="advisorLoginName != null" >
+        #{advisorLoginName,jdbcType=VARCHAR},
+      </if>
+      <if test="advisorPassword != null" >
+        #{advisorPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="advisorRealName != null" >
+        #{advisorRealName,jdbcType=VARCHAR},
+      </if>
+      <if test="advisorMobile != null" >
+        #{advisorMobile,jdbcType=VARCHAR},
+      </if>
+      <if test="advisorIsDiscard != null" >
+        #{advisorIsDiscard,jdbcType=INTEGER},
+      </if>
+      <if test="advisorHeadPortrait != null" >
+        #{advisorHeadPortrait,jdbcType=LONGVARBINARY},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.gred.easy_car.web.entity.ServiceAdvisor" >
+    update ezc_service_advisor
+    <set >
+      <if test="_4sServiceId != null" >
+        _4s_service_id = #{_4sServiceId,jdbcType=VARCHAR},
+      </if>
+      <if test="advisorLoginName != null" >
+        advisor_login_name = #{advisorLoginName,jdbcType=VARCHAR},
+      </if>
+      <if test="advisorPassword != null" >
+        advisor_password = #{advisorPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="advisorRealName != null" >
+        advisor_real_name = #{advisorRealName,jdbcType=VARCHAR},
+      </if>
+      <if test="advisorMobile != null" >
+        advisor_mobile = #{advisorMobile,jdbcType=VARCHAR},
+      </if>
+      <if test="advisorIsDiscard != null" >
+        advisor_is_discard = #{advisorIsDiscard,jdbcType=INTEGER},
+      </if>
+      <if test="advisorHeadPortrait != null" >
+        advisor_head_portrait = #{advisorHeadPortrait,jdbcType=LONGVARBINARY},
+      </if>
+    </set>
+    where advisor_id = #{advisorId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.gred.easy_car.web.entity.ServiceAdvisor" >
+    update ezc_service_advisor
+    set _4s_service_id = #{_4sServiceId,jdbcType=VARCHAR},
+      advisor_login_name = #{advisorLoginName,jdbcType=VARCHAR},
+      advisor_password = #{advisorPassword,jdbcType=VARCHAR},
+      advisor_real_name = #{advisorRealName,jdbcType=VARCHAR},
+      advisor_mobile = #{advisorMobile,jdbcType=VARCHAR},
+      advisor_is_discard = #{advisorIsDiscard,jdbcType=INTEGER},
+      advisor_head_portrait = #{advisorHeadPortrait,jdbcType=LONGVARBINARY}
+    where advisor_id = #{advisorId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.gred.easy_car.web.entity.ServiceAdvisor" >
+    update ezc_service_advisor
+    set _4s_service_id = #{_4sServiceId,jdbcType=VARCHAR},
+      advisor_login_name = #{advisorLoginName,jdbcType=VARCHAR},
+      advisor_password = #{advisorPassword,jdbcType=VARCHAR},
+      advisor_real_name = #{advisorRealName,jdbcType=VARCHAR},
+      advisor_mobile = #{advisorMobile,jdbcType=VARCHAR},
+      advisor_is_discard = #{advisorIsDiscard,jdbcType=INTEGER}
+    where advisor_id = #{advisorId,jdbcType=VARCHAR}
+  </update>
+</mapper>

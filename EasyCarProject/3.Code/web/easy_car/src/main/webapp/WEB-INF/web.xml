@@ -18,10 +18,22 @@
             <param-value>true</param-value>
         </init-param>
     </filter>
+    
+    <filter>
+    	<filter-name>DecryptFilter</filter-name>
+    	<filter-class>com.gred.easy_car.web.filter.DecryptFilter</filter-class>
+    </filter>
+    
+    <filter-mapping>
+    	<filter-name>DecryptFilter</filter-name>
+    	<url-pattern>/*</url-pattern>
+    </filter-mapping>
+    
     <filter-mapping>
         <filter-name>characterEncodingFilter</filter-name>
         <url-pattern>/*</url-pattern>
     </filter-mapping>
+    
     
 <!-- filter end -->
 

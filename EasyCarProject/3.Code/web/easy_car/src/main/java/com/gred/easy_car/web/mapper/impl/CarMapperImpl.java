@@ -15,7 +15,7 @@ import com.gred.easy_car.web.mapper.CarMapper;
 
 /**
  * @ClassName: CarMapperImpl   
- * @Description: TODO(这里用一句话描述这个类的作用)   
+ * @Description: 车辆数据访问实现类   
  * @author WangJianbin  
  * @date 2015年5月6日 下午7:28:44   
  *

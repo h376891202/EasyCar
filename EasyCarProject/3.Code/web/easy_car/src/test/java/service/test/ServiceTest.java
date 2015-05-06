@@ -20,7 +20,7 @@ import com.gred.easy_car.web.service.SystemErrorMessageService;
 
 /**
  * @ClassName: ServiceTest   
- * @Description: TODO(这里用一句话描述这个类的作用)   
+ * @Description: 系统错误表数据访问测试   
  * @author WangJianbin  
  * @date 2015年4月30日 下午2:14:58   
  *

@@ -2,13 +2,28 @@ package com.gred.easy_car.web.entity;
 
 import java.math.BigDecimal;
 
+import javax.validation.constraints.NotNull;
+
+/**
+ * 
+ * @ClassName: Car   
+ * @Description: 车辆信息实体
+ * @author WangJianbin  
+ * @date 2015年5月8日 下午2:44:09   
+ *
+ */
+
 public class Car {
+	
     private String carId;
-
+    
+    @NotNull(message="车辆ID不能为空")
     private String carOwnerId;
-
+    
+    @NotNull(message="车品牌ID不能为空")
     private String carBrandId;
-
+    
+    @NotNull(message="车型ID不能为空")
     private String carBrandTypeId;
 
     private String carOwnerMobile;
@@ -16,9 +31,11 @@ public class Car {
     private String carBrand;
 
     private String carBrandType;
-
+    
+    @NotNull(message="车牌号不能为空")
     private String carPlateNumber;
-
+    
+    @NotNull(message="车辆行驶里程不能为空")
     private BigDecimal carTravelledDistance;
 
     private String carPosition;

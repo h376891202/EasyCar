@@ -1,0 +1,345 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gred.easy_car.web.mapper.OrdinaryDriveOrderMapper" >
+  <resultMap id="BaseResultMap" type="com.gred.easy_car.web.entity.OrdinaryDriveOrder" >
+    <id column="order_id" property="orderId" jdbcType="VARCHAR" />
+    <result column="car_id" property="carId" jdbcType="VARCHAR" />
+    <result column="driver_id" property="driverId" jdbcType="VARCHAR" />
+    <result column="order_number" property="orderNumber" jdbcType="VARCHAR" />
+    <result column="order_start_time" property="orderStartTime" jdbcType="VARCHAR" />
+    <result column="order_user_subscribe_time" property="orderUserSubscribeTime" jdbcType="CHAR" />
+    <result column="_4S_confirm_order_time" property="_4sConfirmOrderTime" jdbcType="CHAR" />
+    <result column="order_driver_confirm_order_time" property="orderDriverConfirmOrderTime" jdbcType="CHAR" />
+    <result column="_4S_receive_car_time" property="_4sReceiveCarTime" jdbcType="CHAR" />
+    <result column="order_pay_time" property="orderPayTime" jdbcType="CHAR" />
+    <result column="order_clear_time" property="orderClearTime" jdbcType="CHAR" />
+    <result column="order_drive_start_time" property="orderDriveStartTime" jdbcType="CHAR" />
+    <result column="order_drive_end_time" property="orderDriveEndTime" jdbcType="CHAR" />
+    <result column="order_status" property="orderStatus" jdbcType="INTEGER" />
+    <result column="order_trading_amount" property="orderTradingAmount" jdbcType="DECIMAL" />
+    <result column="order_pay_type" property="orderPayType" jdbcType="INTEGER" />
+    <result column="order_pay_amount" property="orderPayAmount" jdbcType="DECIMAL" />
+    <result column="order_coupon_number" property="orderCouponNumber" jdbcType="VARCHAR" />
+    <result column="order_coupon_nominal_value" property="orderCouponNominalValue" jdbcType="INTEGER" />
+    <result column="order_car_send_address" property="orderCarSendAddress" jdbcType="VARCHAR" />
+    <result column="order_car_receive_address" property="orderCarReceiveAddress" jdbcType="VARCHAR" />
+    <result column="order_distance" property="orderDistance" jdbcType="DECIMAL" />
+    <result column="order_estimate_cost" property="orderEstimateCost" jdbcType="DECIMAL" />
+    <result column="order_comment" property="orderComment" jdbcType="VARCHAR" />
+    <result column="order_province" property="orderProvince" jdbcType="VARCHAR" />
+    <result column="order_city" property="orderCity" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    order_id, car_id, driver_id, order_number, order_start_time, order_user_subscribe_time, 
+    _4S_confirm_order_time, order_driver_confirm_order_time, _4S_receive_car_time, order_pay_time, 
+    order_clear_time, order_drive_start_time, order_drive_end_time, order_status, order_trading_amount, 
+    order_pay_type, order_pay_amount, order_coupon_number, order_coupon_nominal_value, 
+    order_car_send_address, order_car_receive_address, order_distance, order_estimate_cost, 
+    order_comment, order_province, order_city
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from ezc_order_ordinary_drive
+    where order_id = #{orderId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from ezc_order_ordinary_drive
+    where order_id = #{orderId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.gred.easy_car.web.entity.OrdinaryDriveOrder" >
+    insert into ezc_order_ordinary_drive (order_id, car_id, driver_id, 
+      order_number, order_start_time, order_user_subscribe_time, 
+      _4S_confirm_order_time, order_driver_confirm_order_time, 
+      _4S_receive_car_time, order_pay_time, order_clear_time, 
+      order_drive_start_time, order_drive_end_time, order_status, 
+      order_trading_amount, order_pay_type, order_pay_amount, 
+      order_coupon_number, order_coupon_nominal_value, 
+      order_car_send_address, order_car_receive_address, 
+      order_distance, order_estimate_cost, order_comment, 
+      order_province, order_city)
+    values (#{orderId,jdbcType=VARCHAR}, #{carId,jdbcType=VARCHAR}, #{driverId,jdbcType=VARCHAR}, 
+      #{orderNumber,jdbcType=VARCHAR}, #{orderStartTime,jdbcType=VARCHAR}, #{orderUserSubscribeTime,jdbcType=CHAR}, 
+      #{_4sConfirmOrderTime,jdbcType=CHAR}, #{orderDriverConfirmOrderTime,jdbcType=CHAR}, 
+      #{_4sReceiveCarTime,jdbcType=CHAR}, #{orderPayTime,jdbcType=CHAR}, #{orderClearTime,jdbcType=CHAR}, 
+      #{orderDriveStartTime,jdbcType=CHAR}, #{orderDriveEndTime,jdbcType=CHAR}, #{orderStatus,jdbcType=INTEGER}, 
+      #{orderTradingAmount,jdbcType=DECIMAL}, #{orderPayType,jdbcType=INTEGER}, #{orderPayAmount,jdbcType=DECIMAL}, 
+      #{orderCouponNumber,jdbcType=VARCHAR}, #{orderCouponNominalValue,jdbcType=INTEGER}, 
+      #{orderCarSendAddress,jdbcType=VARCHAR}, #{orderCarReceiveAddress,jdbcType=VARCHAR}, 
+      #{orderDistance,jdbcType=DECIMAL}, #{orderEstimateCost,jdbcType=DECIMAL}, #{orderComment,jdbcType=VARCHAR}, 
+      #{orderProvince,jdbcType=VARCHAR}, #{orderCity,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.gred.easy_car.web.entity.OrdinaryDriveOrder" >
+    insert into ezc_order_ordinary_drive
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="orderId != null" >
+        order_id,
+      </if>
+      <if test="carId != null" >
+        car_id,
+      </if>
+      <if test="driverId != null" >
+        driver_id,
+      </if>
+      <if test="orderNumber != null" >
+        order_number,
+      </if>
+      <if test="orderStartTime != null" >
+        order_start_time,
+      </if>
+      <if test="orderUserSubscribeTime != null" >
+        order_user_subscribe_time,
+      </if>
+      <if test="_4sConfirmOrderTime != null" >
+        _4S_confirm_order_time,
+      </if>
+      <if test="orderDriverConfirmOrderTime != null" >
+        order_driver_confirm_order_time,
+      </if>
+      <if test="_4sReceiveCarTime != null" >
+        _4S_receive_car_time,
+      </if>
+      <if test="orderPayTime != null" >
+        order_pay_time,
+      </if>
+      <if test="orderClearTime != null" >
+        order_clear_time,
+      </if>
+      <if test="orderDriveStartTime != null" >
+        order_drive_start_time,
+      </if>
+      <if test="orderDriveEndTime != null" >
+        order_drive_end_time,
+      </if>
+      <if test="orderStatus != null" >
+        order_status,
+      </if>
+      <if test="orderTradingAmount != null" >
+        order_trading_amount,
+      </if>
+      <if test="orderPayType != null" >
+        order_pay_type,
+      </if>
+      <if test="orderPayAmount != null" >
+        order_pay_amount,
+      </if>
+      <if test="orderCouponNumber != null" >
+        order_coupon_number,
+      </if>
+      <if test="orderCouponNominalValue != null" >
+        order_coupon_nominal_value,
+      </if>
+      <if test="orderCarSendAddress != null" >
+        order_car_send_address,
+      </if>
+      <if test="orderCarReceiveAddress != null" >
+        order_car_receive_address,
+      </if>
+      <if test="orderDistance != null" >
+        order_distance,
+      </if>
+      <if test="orderEstimateCost != null" >
+        order_estimate_cost,
+      </if>
+      <if test="orderComment != null" >
+        order_comment,
+      </if>
+      <if test="orderProvince != null" >
+        order_province,
+      </if>
+      <if test="orderCity != null" >
+        order_city,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="orderId != null" >
+        #{orderId,jdbcType=VARCHAR},
+      </if>
+      <if test="carId != null" >
+        #{carId,jdbcType=VARCHAR},
+      </if>
+      <if test="driverId != null" >
+        #{driverId,jdbcType=VARCHAR},
+      </if>
+      <if test="orderNumber != null" >
+        #{orderNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="orderStartTime != null" >
+        #{orderStartTime,jdbcType=VARCHAR},
+      </if>
+      <if test="orderUserSubscribeTime != null" >
+        #{orderUserSubscribeTime,jdbcType=CHAR},
+      </if>
+      <if test="_4sConfirmOrderTime != null" >
+        #{_4sConfirmOrderTime,jdbcType=CHAR},
+      </if>
+      <if test="orderDriverConfirmOrderTime != null" >
+        #{orderDriverConfirmOrderTime,jdbcType=CHAR},
+      </if>
+      <if test="_4sReceiveCarTime != null" >
+        #{_4sReceiveCarTime,jdbcType=CHAR},
+      </if>
+      <if test="orderPayTime != null" >
+        #{orderPayTime,jdbcType=CHAR},
+      </if>
+      <if test="orderClearTime != null" >
+        #{orderClearTime,jdbcType=CHAR},
+      </if>
+      <if test="orderDriveStartTime != null" >
+        #{orderDriveStartTime,jdbcType=CHAR},
+      </if>
+      <if test="orderDriveEndTime != null" >
+        #{orderDriveEndTime,jdbcType=CHAR},
+      </if>
+      <if test="orderStatus != null" >
+        #{orderStatus,jdbcType=INTEGER},
+      </if>
+      <if test="orderTradingAmount != null" >
+        #{orderTradingAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="orderPayType != null" >
+        #{orderPayType,jdbcType=INTEGER},
+      </if>
+      <if test="orderPayAmount != null" >
+        #{orderPayAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="orderCouponNumber != null" >
+        #{orderCouponNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="orderCouponNominalValue != null" >
+        #{orderCouponNominalValue,jdbcType=INTEGER},
+      </if>
+      <if test="orderCarSendAddress != null" >
+        #{orderCarSendAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="orderCarReceiveAddress != null" >
+        #{orderCarReceiveAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="orderDistance != null" >
+        #{orderDistance,jdbcType=DECIMAL},
+      </if>
+      <if test="orderEstimateCost != null" >
+        #{orderEstimateCost,jdbcType=DECIMAL},
+      </if>
+      <if test="orderComment != null" >
+        #{orderComment,jdbcType=VARCHAR},
+      </if>
+      <if test="orderProvince != null" >
+        #{orderProvince,jdbcType=VARCHAR},
+      </if>
+      <if test="orderCity != null" >
+        #{orderCity,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.gred.easy_car.web.entity.OrdinaryDriveOrder" >
+    update ezc_order_ordinary_drive
+    <set >
+      <if test="carId != null" >
+        car_id = #{carId,jdbcType=VARCHAR},
+      </if>
+      <if test="driverId != null" >
+        driver_id = #{driverId,jdbcType=VARCHAR},
+      </if>
+      <if test="orderNumber != null" >
+        order_number = #{orderNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="orderStartTime != null" >
+        order_start_time = #{orderStartTime,jdbcType=VARCHAR},
+      </if>
+      <if test="orderUserSubscribeTime != null" >
+        order_user_subscribe_time = #{orderUserSubscribeTime,jdbcType=CHAR},
+      </if>
+      <if test="_4sConfirmOrderTime != null" >
+        _4S_confirm_order_time = #{_4sConfirmOrderTime,jdbcType=CHAR},
+      </if>
+      <if test="orderDriverConfirmOrderTime != null" >
+        order_driver_confirm_order_time = #{orderDriverConfirmOrderTime,jdbcType=CHAR},
+      </if>
+      <if test="_4sReceiveCarTime != null" >
+        _4S_receive_car_time = #{_4sReceiveCarTime,jdbcType=CHAR},
+      </if>
+      <if test="orderPayTime != null" >
+        order_pay_time = #{orderPayTime,jdbcType=CHAR},
+      </if>
+      <if test="orderClearTime != null" >
+        order_clear_time = #{orderClearTime,jdbcType=CHAR},
+      </if>
+      <if test="orderDriveStartTime != null" >
+        order_drive_start_time = #{orderDriveStartTime,jdbcType=CHAR},
+      </if>
+      <if test="orderDriveEndTime != null" >
+        order_drive_end_time = #{orderDriveEndTime,jdbcType=CHAR},
+      </if>
+      <if test="orderStatus != null" >
+        order_status = #{orderStatus,jdbcType=INTEGER},
+      </if>
+      <if test="orderTradingAmount != null" >
+        order_trading_amount = #{orderTradingAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="orderPayType != null" >
+        order_pay_type = #{orderPayType,jdbcType=INTEGER},
+      </if>
+      <if test="orderPayAmount != null" >
+        order_pay_amount = #{orderPayAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="orderCouponNumber != null" >
+        order_coupon_number = #{orderCouponNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="orderCouponNominalValue != null" >
+        order_coupon_nominal_value = #{orderCouponNominalValue,jdbcType=INTEGER},
+      </if>
+      <if test="orderCarSendAddress != null" >
+        order_car_send_address = #{orderCarSendAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="orderCarReceiveAddress != null" >
+        order_car_receive_address = #{orderCarReceiveAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="orderDistance != null" >
+        order_distance = #{orderDistance,jdbcType=DECIMAL},
+      </if>
+      <if test="orderEstimateCost != null" >
+        order_estimate_cost = #{orderEstimateCost,jdbcType=DECIMAL},
+      </if>
+      <if test="orderComment != null" >
+        order_comment = #{orderComment,jdbcType=VARCHAR},
+      </if>
+      <if test="orderProvince != null" >
+        order_province = #{orderProvince,jdbcType=VARCHAR},
+      </if>
+      <if test="orderCity != null" >
+        order_city = #{orderCity,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where order_id = #{orderId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.gred.easy_car.web.entity.OrdinaryDriveOrder" >
+    update ezc_order_ordinary_drive
+    set car_id = #{carId,jdbcType=VARCHAR},
+      driver_id = #{driverId,jdbcType=VARCHAR},
+      order_number = #{orderNumber,jdbcType=VARCHAR},
+      order_start_time = #{orderStartTime,jdbcType=VARCHAR},
+      order_user_subscribe_time = #{orderUserSubscribeTime,jdbcType=CHAR},
+      _4S_confirm_order_time = #{_4sConfirmOrderTime,jdbcType=CHAR},
+      order_driver_confirm_order_time = #{orderDriverConfirmOrderTime,jdbcType=CHAR},
+      _4S_receive_car_time = #{_4sReceiveCarTime,jdbcType=CHAR},
+      order_pay_time = #{orderPayTime,jdbcType=CHAR},
+      order_clear_time = #{orderClearTime,jdbcType=CHAR},
+      order_drive_start_time = #{orderDriveStartTime,jdbcType=CHAR},
+      order_drive_end_time = #{orderDriveEndTime,jdbcType=CHAR},
+      order_status = #{orderStatus,jdbcType=INTEGER},
+      order_trading_amount = #{orderTradingAmount,jdbcType=DECIMAL},
+      order_pay_type = #{orderPayType,jdbcType=INTEGER},
+      order_pay_amount = #{orderPayAmount,jdbcType=DECIMAL},
+      order_coupon_number = #{orderCouponNumber,jdbcType=VARCHAR},
+      order_coupon_nominal_value = #{orderCouponNominalValue,jdbcType=INTEGER},
+      order_car_send_address = #{orderCarSendAddress,jdbcType=VARCHAR},
+      order_car_receive_address = #{orderCarReceiveAddress,jdbcType=VARCHAR},
+      order_distance = #{orderDistance,jdbcType=DECIMAL},
+      order_estimate_cost = #{orderEstimateCost,jdbcType=DECIMAL},
+      order_comment = #{orderComment,jdbcType=VARCHAR},
+      order_province = #{orderProvince,jdbcType=VARCHAR},
+      order_city = #{orderCity,jdbcType=VARCHAR}
+    where order_id = #{orderId,jdbcType=VARCHAR}
+  </update>
+</mapper>

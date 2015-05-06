@@ -16,7 +16,7 @@ import com.gred.easy_car.web.service.SystemErrorMessageService;
 
 /**
  * @ClassName: SystemErrorMessageServiceImpl   
- * @Description: TODO(这里用一句话描述这个类的作用)   
+ * @Description: 系统错误信息Service层实现类   
  * @author WangJianbin  
  * @date 2015年4月30日 下午2:13:12   
  *
