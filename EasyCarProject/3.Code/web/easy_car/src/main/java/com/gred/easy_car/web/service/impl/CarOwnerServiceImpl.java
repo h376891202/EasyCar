@@ -9,16 +9,21 @@
 package com.gred.easy_car.web.service.impl;
 
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.apache.commons.codec.digest.Md5Crypt;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
 import com.gred.easy_car.common.constant.SMSInterfaceInfo;
 import com.gred.easy_car.common.constant.SMSInvokeResult;
 import com.gred.easy_car.common.enums.LogLevel;
+import com.gred.easy_car.common.utils.CiphertextUtil;
 import com.gred.easy_car.common.utils.EHCacheUtils;
 import com.gred.easy_car.common.utils.HttpUtils;
 import com.gred.easy_car.common.utils.Log4jUtils;
@@ -28,6 +33,7 @@ import com.gred.easy_car.web.controller.mobile.MobileTerminalAccessController;
 import com.gred.easy_car.web.entity.Car;
 import com.gred.easy_car.web.entity.CarOwner;
 import com.gred.easy_car.web.entity.JsonResult;
+import com.gred.easy_car.web.mapper.CarOwnerMapper;
 import com.gred.easy_car.web.service.CarOwnerService;
 import com.gred.easy_car.web.service.CarService;
 
@@ -48,7 +54,7 @@ public class CarOwnerServiceImpl extends BaseServiceImpl<CarOwner, String> imple
 	
 	private  final String ERROR_MESSAGE_CACHE = "ErrorMessageCache";
 	
-	private static final Log4jUtils log = new Log4jUtils(MobileTerminalAccessController.class);
+	private static final Log4jUtils log = new Log4jUtils(CarOwnerServiceImpl.class);
 	
 	private SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSSXXX");
 	
@@ -57,6 +63,9 @@ public class CarOwnerServiceImpl extends BaseServiceImpl<CarOwner, String> imple
 	
 	@Autowired
 	private CarService carService;
+	
+	@Autowired
+	private CarOwnerMapper carOwnerMapper;
 	/* 
 	 * <p>Title: mobileTerminalRegester</p>   
 	 * <p>Description: </p>   
@@ -95,21 +104,51 @@ public class CarOwnerServiceImpl extends BaseServiceImpl<CarOwner, String> imple
 				String message = (String) EHCacheUtils.getElementValueFromCache(ERROR_MESSAGE_CACHE, "203");
 				result.setStatusMessage(message);
 				log.log(LogLevel.ERROR, "【移动端注册模块】：两次输入密码不一致");
+				return result;
 			}
+		}						
+		
+		try {
+			carOwner.setUserId(UUIDGenerator.generateUUID());
+			carOwner.setUserRegisterTime(format.format(new Date()));
+			
+			save(carOwner);
+			
+		} catch (DuplicateKeyException e) {
+			//此异常代表违反数据库唯一约束
+			result.setStatus(102);
+			String message = (String) EHCacheUtils.getElementValueFromCache(ERROR_MESSAGE_CACHE, "102");
+			result.setStatusMessage(message);
+			log.log(LogLevel.ERROR, "【移动端注册模块】：注册失败，手机号码为："+carOwner.getUserMobile()+"用户已经存在！", e);
+			return result;
 		}
 		
-		carOwner.setUserId(UUIDGenerator.generateUUID());
-		car.setCarId(UUIDGenerator.generateUUID());
-		save(carOwner);
+		try {
+			car.setCarId(UUIDGenerator.generateUUID());
+			car.setCarOwnerId(carOwner.getUserId());
+			car.setCarOwnerMobile(carOwner.getUserMobile());
+			carService.save(car);
+		} catch (DuplicateKeyException e) {
+			result.setStatus(106);
+			String message = (String) EHCacheUtils.getElementValueFromCache(ERROR_MESSAGE_CACHE, "106");
+			result.setStatusMessage(message);
+			log.log(LogLevel.ERROR, "【移动端注册模块】：注册失败，车牌号为："+car.getCarPlateNumber()+"，车辆已经存在！", e);
+			return result;
+		}
 		
-		carService.save(car);
+		result.setStatus(107);
+		String message = (String) EHCacheUtils.getElementValueFromCache(ERROR_MESSAGE_CACHE, "107");
+		result.setStatusMessage(message);
+		log.log(LogLevel.INFO, "【移动端注册模块】：注册成功，车牌号为："+car.getCarPlateNumber());
 		
-		return null;
+		return result;
 	}
 	
 	@Override
-	public  void getSMSCode(String mobileNumber){
-		//生成六位数随机验证码 
+	public  JsonResult<Object> getSMSCode(String mobileNumber){
+				
+				JsonResult<Object> jsonResult = new JsonResult<>();
+				//生成六位数随机验证码 
 				identifyingCode=RandomNumberUtils.generateRandomNumber(6);
 				
 				//保存验证码到EHCache中，用于验证
@@ -126,27 +165,67 @@ public class CarOwnerServiceImpl extends BaseServiceImpl<CarOwner, String> imple
 				
 				if(result.contains(SMSInvokeResult.STATUS_SUCCESS)){
 					//发信成功
-					log.log(LogLevel.INFO, "【移动端注册模块】：新用户注册，发送验证短信成功"+result+",发送号码为："+mobileNumber);
+					jsonResult.setStatus(204);
+					String message = (String) EHCacheUtils.getElementValueFromCache(ERROR_MESSAGE_CACHE, "204");
+					jsonResult.setStatusMessage(message);
+					log.log(LogLevel.INFO, "【移动端注册模块】：发送短信验证码成功"+result+",发送号码为："+mobileNumber);
+					
+					return jsonResult;
 				}
 				if(result.contains(SMSInvokeResult.STATUS_FAILED)){
 					//短信接口调用失败
+					jsonResult.setStatus(205);
+					String message = (String) EHCacheUtils.getElementValueFromCache(ERROR_MESSAGE_CACHE, "205");
+					jsonResult.setStatusMessage(message);
 					log.log(LogLevel.ERROR, "【移动端注册模块】：发送短信验证码失败，短信接口异常："+result+",发送号码为："+mobileNumber);
+					
+					return jsonResult;
 				}
+				
+				return null;
 				
 	}
 
+	
+
 	/* 
-	 * <p>Title: mobileTerminalLogin</p>   
+	 * <p>Title: validateCarOwner</p>   
 	 * <p>Description: </p>   
-	 * @param carOwner
 	 * @return   
-	 * @see com.gred.easy_car.web.service.CarOwnerService#mobileTerminalLogin(com.gred.easy_car.web.entity.CarOwner)   
+	 * @see com.gred.easy_car.web.service.CarOwnerService#validateCarOwner()   
 	 */   
 	@Override
-	public JsonResult<Car> mobileTerminalLogin(CarOwner carOwner) {
+	public JsonResult<Object> validateCarOwner(CarOwner carOwner) {
+		JsonResult<Object> jsonResult = new JsonResult<>();
+		CarOwner owner =carOwnerMapper.selectByMobile(carOwner.getUserMobile());
+		if(owner==null){
+			log.log(LogLevel.ERROR, "【用户登陆模块】：用户名不存在");
+			jsonResult.setStatus(103);
+			String message = (String) EHCacheUtils.getElementValueFromCache(ERROR_MESSAGE_CACHE, "103");
+			jsonResult.setStatusMessage(message);
+			return jsonResult;
+		}else{
+			if(CiphertextUtil.verifyPassword(carOwner.getUserPwd(), CiphertextUtil.MD5, owner.getUserPwd())){
+				//验证通过
+				log.log(LogLevel.ERROR, "【用户登陆模块】：用户"+carOwner.getUserMobile()+"登陆成功！");
+				jsonResult.setStatus(105);
+				String message = (String) EHCacheUtils.getElementValueFromCache(ERROR_MESSAGE_CACHE, "105");
+				jsonResult.setStatusMessage(message);
+				
+				//TODO 返回用户uuid 用与取des对称秘钥
+				
+				return jsonResult;
+			}else{
+				//用户名密码不匹配
+				log.log(LogLevel.ERROR, "【用户登陆模块】：用户名和密码不匹配"+carOwner.getUserMobile()+"登陆失败！");
+				jsonResult.setStatus(104);
+				String message = (String) EHCacheUtils.getElementValueFromCache(ERROR_MESSAGE_CACHE, "104");
+				jsonResult.setStatusMessage(message);
+				return jsonResult;
+			}
+		}
 		
 		
-		return null;
 	}
 
 	

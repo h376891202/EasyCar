@@ -41,7 +41,7 @@ public class DecryptFilter implements Filter{
 	@Override
 	public void init(FilterConfig arg0) throws ServletException {
 		
-		log.log(LogLevel.INFO, "【通信解密过滤器】加载.....");
+		log.log(LogLevel.INFO, "【通信解密过滤器】初始化.....");
 	}
 
 	/* 

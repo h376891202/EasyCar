@@ -17,7 +17,7 @@
     <import resource="spring-database.xml"/>
     <import resource="spring-aop.xml"/>
 
-
+	<bean class="com.gred.easy_car.web.listener.InstantiationTracingBeanPostProcessor"/> 
 
     <bean id="log4jInitialization"
           class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">

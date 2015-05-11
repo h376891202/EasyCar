@@ -33,7 +33,6 @@ public class CarOwner {
     
     private String userRegisterTime;
     
-    @NotBlank(message="行驶里程不能为空！")
     private String userDrivingPermitPath;
 
     private byte[] userHeadPortrait;

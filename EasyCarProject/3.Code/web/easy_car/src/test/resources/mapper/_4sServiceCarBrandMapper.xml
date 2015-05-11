@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gred.easy_car.web.mapper._4sServiceCarBrandMapper" >
+  <resultMap id="BaseResultMap" type="com.gred.easy_car.web.entity._4sServiceCarBrand" >
+    <id column="_4s_service_id" property="__4sServiceId" jdbcType="VARCHAR" />
+    <id column="car_brand_id" property="carBrandId" jdbcType="VARCHAR" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="com.gred.easy_car.web.entity._4sServiceCarBrand" >
+    delete from ezc_4s_service_car_brand
+    where _4s_service_id = #{_4sServiceId,jdbcType=VARCHAR}
+      and car_brand_id = #{carBrandId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.gred.easy_car.web.entity._4sServiceCarBrand" >
+    insert into ezc_4s_service_car_brand (_4s_service_id, car_brand_id)
+    values (#{_4sServiceId,jdbcType=VARCHAR}, #{carBrandId,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.gred.easy_car.web.entity._4sServiceCarBrand" >
+    insert into ezc_4s_service_car_brand
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="_4sServiceId != null" >
+        _4s_service_id,
+      </if>
+      <if test="carBrandId != null" >
+        car_brand_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="_4sServiceId != null" >
+        #{_4sServiceId,jdbcType=VARCHAR},
+      </if>
+      <if test="carBrandId != null" >
+        #{carBrandId,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+</mapper>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gred.easy_car.web.mapper.CouponFreeCarBrandMapper" >
+  <resultMap id="BaseResultMap" type="com.gred.easy_car.web.entity.CouponFreeCarBrand" >
+    <id column="coupon_id" property="couponId" jdbcType="VARCHAR" />
+    <id column="car_brand_id" property="carBrandId" jdbcType="VARCHAR" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="com.gred.easy_car.web.entity.CouponFreeCarBrand" >
+    delete from coupon_free_car_brand
+    where coupon_id = #{couponId,jdbcType=VARCHAR}
+      and car_brand_id = #{carBrandId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.gred.easy_car.web.entity.CouponFreeCarBrand" >
+    insert into coupon_free_car_brand (coupon_id, car_brand_id)
+    values (#{couponId,jdbcType=VARCHAR}, #{carBrandId,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.gred.easy_car.web.entity.CouponFreeCarBrand" >
+    insert into coupon_free_car_brand
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="couponId != null" >
+        coupon_id,
+      </if>
+      <if test="carBrandId != null" >
+        car_brand_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="couponId != null" >
+        #{couponId,jdbcType=VARCHAR},
+      </if>
+      <if test="carBrandId != null" >
+        #{carBrandId,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+</mapper>

@@ -17,19 +17,19 @@ public class Car {
 	
     private String carId;
     
-    @NotNull(message="车辆ID不能为空")
+    @NotNull(message="车主ID不能为空")
     private String carOwnerId;
-    
-    @NotNull(message="车品牌ID不能为空")
+   
     private String carBrandId;
     
-    @NotNull(message="车型ID不能为空")
     private String carBrandTypeId;
 
     private String carOwnerMobile;
-
+    
+    @NotNull(message="车品牌不能为空")
     private String carBrand;
-
+    
+    @NotNull(message="车型不能为空")
     private String carBrandType;
     
     @NotNull(message="车牌号不能为空")

@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gred.easy_car.web.mapper._4sServiceMapper" >
+  <resultMap id="BaseResultMap" type="com.gred.easy_car.web.entity._4sService" >
+    <id column="_4s_service_id" property="_4sServiceId" jdbcType="VARCHAR" />
+    <result column="_4s_service_login_name" property="_4sServiceLoginName" jdbcType="VARCHAR" />
+    <result column="_4s_service_store_name" property="_4sServiceStoreName" jdbcType="VARCHAR" />
+    <result column="_4s_service_password" property="_4sServicePassword" jdbcType="VARCHAR" />
+    <result column="_4s_service_address" property="_4sServiceAddress" jdbcType="VARCHAR" />
+    <result column="_4s_service_position" property="_4sServicePosition" jdbcType="VARCHAR" />
+    <result column="_4s_service_is_partner" property="_4sServiceIsPartner" jdbcType="INTEGER" />
+    <result column="_4s_service_province" property="_4sServiceProvince" jdbcType="VARCHAR" />
+    <result column="_4s_service_city" property="_4sServiceCity" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    _4s_service_id, _4s_service_login_name, _4s_service_store_name, _4s_service_password, 
+    _4s_service_address, _4s_service_position, _4s_service_is_partner, _4s_service_province, 
+    _4s_service_city
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from ezc_4s_service
+    where _4s_service_id = #{_4sServiceId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from ezc_4s_service
+    where _4s_service_id = #{_4sServiceId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.gred.easy_car.web.entity._4sService" >
+    insert into ezc_4s_service (_4s_service_id, _4s_service_login_name, 
+      _4s_service_store_name, _4s_service_password, 
+      _4s_service_address, _4s_service_position, _4s_service_is_partner, 
+      _4s_service_province, _4s_service_city)
+    values (#{_4sServiceId,jdbcType=VARCHAR}, #{_4sServiceLoginName,jdbcType=VARCHAR}, 
+      #{_4sServiceStoreName,jdbcType=VARCHAR}, #{_4sServicePassword,jdbcType=VARCHAR}, 
+      #{_4sServiceAddress,jdbcType=VARCHAR}, #{_4sServicePosition,jdbcType=VARCHAR}, #{_4sServiceIsPartner,jdbcType=INTEGER}, 
+      #{_4sServiceProvince,jdbcType=VARCHAR}, #{_4sServiceCity,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.gred.easy_car.web.entity._4sService" >
+    insert into ezc_4s_service
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="_4sServiceId != null" >
+        _4s_service_id,
+      </if>
+      <if test="_4sServiceLoginName != null" >
+        _4s_service_login_name,
+      </if>
+      <if test="_4sServiceStoreName != null" >
+        _4s_service_store_name,
+      </if>
+      <if test="_4sServicePassword != null" >
+        _4s_service_password,
+      </if>
+      <if test="_4sServiceAddress != null" >
+        _4s_service_address,
+      </if>
+      <if test="_4sServicePosition != null" >
+        _4s_service_position,
+      </if>
+      <if test="_4sServiceIsPartner != null" >
+        _4s_service_is_partner,
+      </if>
+      <if test="_4sServiceProvince != null" >
+        _4s_service_province,
+      </if>
+      <if test="_4sServiceCity != null" >
+        _4s_service_city,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="_4sServiceId != null" >
+        #{_4sServiceId,jdbcType=VARCHAR},
+      </if>
+      <if test="_4sServiceLoginName != null" >
+        #{_4sServiceLoginName,jdbcType=VARCHAR},
+      </if>
+      <if test="_4sServiceStoreName != null" >
+        #{_4sServiceStoreName,jdbcType=VARCHAR},
+      </if>
+      <if test="_4sServicePassword != null" >
+        #{_4sServicePassword,jdbcType=VARCHAR},
+      </if>
+      <if test="_4sServiceAddress != null" >
+        #{_4sServiceAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="_4sServicePosition != null" >
+        #{_4sServicePosition,jdbcType=VARCHAR},
+      </if>
+      <if test="_4sServiceIsPartner != null" >
+        #{_4sServiceIsPartner,jdbcType=INTEGER},
+      </if>
+      <if test="_4sServiceProvince != null" >
+        #{_4sServiceProvince,jdbcType=VARCHAR},
+      </if>
+      <if test="_4sServiceCity != null" >
+        #{_4sServiceCity,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.gred.easy_car.web.entity._4sService" >
+    update ezc_4s_service
+    <set >
+      <if test="_4sServiceLoginName != null" >
+        _4s_service_login_name = #{_4sServiceLoginName,jdbcType=VARCHAR},
+      </if>
+      <if test="_4sServiceStoreName != null" >
+        _4s_service_store_name = #{_4sServiceStoreName,jdbcType=VARCHAR},
+      </if>
+      <if test="_4sServicePassword != null" >
+        _4s_service_password = #{_4sServicePassword,jdbcType=VARCHAR},
+      </if>
+      <if test="_4sServiceAddress != null" >
+        _4s_service_address = #{_4sServiceAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="_4sServicePosition != null" >
+        _4s_service_position = #{_4sServicePosition,jdbcType=VARCHAR},
+      </if>
+      <if test="_4sServiceIsPartner != null" >
+        _4s_service_is_partner = #{_4sServiceIsPartner,jdbcType=INTEGER},
+      </if>
+      <if test="_4sServiceProvince != null" >
+        _4s_service_province = #{_4sServiceProvince,jdbcType=VARCHAR},
+      </if>
+      <if test="_4sServiceCity != null" >
+        _4s_service_city = #{_4sServiceCity,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where _4s_service_id = #{_4sServiceId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.gred.easy_car.web.entity._4sService" >
+    update ezc_4s_service
+    set _4s_service_login_name = #{_4sServiceLoginName,jdbcType=VARCHAR},
+      _4s_service_store_name = #{_4sServiceStoreName,jdbcType=VARCHAR},
+      _4s_service_password = #{_4sServicePassword,jdbcType=VARCHAR},
+      _4s_service_address = #{_4sServiceAddress,jdbcType=VARCHAR},
+      _4s_service_position = #{_4sServicePosition,jdbcType=VARCHAR},
+      _4s_service_is_partner = #{_4sServiceIsPartner,jdbcType=INTEGER},
+      _4s_service_province = #{_4sServiceProvince,jdbcType=VARCHAR},
+      _4s_service_city = #{_4sServiceCity,jdbcType=VARCHAR}
+    where _4s_service_id = #{_4sServiceId,jdbcType=VARCHAR}
+  </update>
+</mapper>

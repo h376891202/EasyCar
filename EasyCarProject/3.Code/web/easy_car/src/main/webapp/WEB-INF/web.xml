@@ -37,14 +37,7 @@
     
 <!-- filter end -->
 
-<!-- listener -->
-    <listener>
-        <listener-class>org.springframework.web.context.request.RequestContextListener</listener-class>
-    </listener>
-    
-    
- <!-- listener end --> 
-  
+
  <context-param>  
     <param-name>webAppRootKey</param-name>  
     <param-value>appRoot</param-value>  
@@ -52,7 +45,7 @@
   
   <!-- servlet -->
     <servlet>
-        <servlet-name>Test</servlet-name>
+        <servlet-name>SpringMvc</servlet-name>
         <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
         <init-param>
             <param-name>contextConfigLocation</param-name>
@@ -61,9 +54,18 @@
         <load-on-startup>1</load-on-startup>
     </servlet>
     <servlet-mapping>
-        <servlet-name>Test</servlet-name>
+        <servlet-name>SpringMvc</servlet-name>
         <url-pattern>*.do</url-pattern>
     </servlet-mapping>
+    
+    <!-- listener -->
+    <listener>
+        <listener-class>org.springframework.web.context.request.RequestContextListener</listener-class>
+    </listener>
+    
+    
+ <!-- listener end --> 
+  
     <error-page>
         <error-code>404</error-code>
         <location>/error/404.jsp</location>

@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gred.easy_car.web.mapper.CarBrandMapper" >
+  <resultMap id="BaseResultMap" type="com.gred.easy_car.web.entity.CarBrand" >
+    <id column="car_brand_id" property="carBrandId" jdbcType="VARCHAR" />
+    <result column="car_brand_name" property="carBrandName" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.gred.easy_car.web.entity.CarBrand" extends="BaseResultMap" >
+    <result column="car_brand_icon" property="carBrandIcon" jdbcType="LONGVARBINARY" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    car_brand_id, car_brand_name
+  </sql>
+  <sql id="Blob_Column_List" >
+    car_brand_icon
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from ezc_car_brand
+    where car_brand_id = #{carBrandId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from ezc_car_brand
+    where car_brand_id = #{carBrandId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.gred.easy_car.web.entity.CarBrand" >
+    insert into ezc_car_brand (car_brand_id, car_brand_name, car_brand_icon
+      )
+    values (#{carBrandId,jdbcType=VARCHAR}, #{carBrandName,jdbcType=VARCHAR}, #{carBrandIcon,jdbcType=LONGVARBINARY}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.gred.easy_car.web.entity.CarBrand" >
+    insert into ezc_car_brand
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="carBrandId != null" >
+        car_brand_id,
+      </if>
+      <if test="carBrandName != null" >
+        car_brand_name,
+      </if>
+      <if test="carBrandIcon != null" >
+        car_brand_icon,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="carBrandId != null" >
+        #{carBrandId,jdbcType=VARCHAR},
+      </if>
+      <if test="carBrandName != null" >
+        #{carBrandName,jdbcType=VARCHAR},
+      </if>
+      <if test="carBrandIcon != null" >
+        #{carBrandIcon,jdbcType=LONGVARBINARY},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.gred.easy_car.web.entity.CarBrand" >
+    update ezc_car_brand
+    <set >
+      <if test="carBrandName != null" >
+        car_brand_name = #{carBrandName,jdbcType=VARCHAR},
+      </if>
+      <if test="carBrandIcon != null" >
+        car_brand_icon = #{carBrandIcon,jdbcType=LONGVARBINARY},
+      </if>
+    </set>
+    where car_brand_id = #{carBrandId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.gred.easy_car.web.entity.CarBrand" >
+    update ezc_car_brand
+    set car_brand_name = #{carBrandName,jdbcType=VARCHAR},
+      car_brand_icon = #{carBrandIcon,jdbcType=LONGVARBINARY}
+    where car_brand_id = #{carBrandId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.gred.easy_car.web.entity.CarBrand" >
+    update ezc_car_brand
+    set car_brand_name = #{carBrandName,jdbcType=VARCHAR}
+    where car_brand_id = #{carBrandId,jdbcType=VARCHAR}
+  </update>
+</mapper>

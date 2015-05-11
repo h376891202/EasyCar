@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gred.easy_car.web.mapper.DriverPositionMapper" >
+  <resultMap id="BaseResultMap" type="com.gred.easy_car.web.entity.DriverPosition" >
+    <id column="driver_id" property="driverId" jdbcType="VARCHAR" />
+    <result column="driver_current_position" property="driverCurrentPosition" jdbcType="VARCHAR" />
+    <result column="driver_position_last_update_time" property="driverPositionLastUpdateTime" jdbcType="VARCHAR" />
+    <result column="driver_province" property="driverProvince" jdbcType="VARCHAR" />
+    <result column="driver_city" property="driverCity" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    driver_id, driver_current_position, driver_position_last_update_time, driver_province, 
+    driver_city
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from ezc_driver_position
+    where driver_id = #{driverId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from ezc_driver_position
+    where driver_id = #{driverId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.gred.easy_car.web.entity.DriverPosition" >
+    insert into ezc_driver_position (driver_id, driver_current_position, 
+      driver_position_last_update_time, driver_province, 
+      driver_city)
+    values (#{driverId,jdbcType=VARCHAR}, #{driverCurrentPosition,jdbcType=VARCHAR}, 
+      #{driverPositionLastUpdateTime,jdbcType=VARCHAR}, #{driverProvince,jdbcType=VARCHAR}, 
+      #{driverCity,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.gred.easy_car.web.entity.DriverPosition" >
+    insert into ezc_driver_position
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="driverId != null" >
+        driver_id,
+      </if>
+      <if test="driverCurrentPosition != null" >
+        driver_current_position,
+      </if>
+      <if test="driverPositionLastUpdateTime != null" >
+        driver_position_last_update_time,
+      </if>
+      <if test="driverProvince != null" >
+        driver_province,
+      </if>
+      <if test="driverCity != null" >
+        driver_city,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="driverId != null" >
+        #{driverId,jdbcType=VARCHAR},
+      </if>
+      <if test="driverCurrentPosition != null" >
+        #{driverCurrentPosition,jdbcType=VARCHAR},
+      </if>
+      <if test="driverPositionLastUpdateTime != null" >
+        #{driverPositionLastUpdateTime,jdbcType=VARCHAR},
+      </if>
+      <if test="driverProvince != null" >
+        #{driverProvince,jdbcType=VARCHAR},
+      </if>
+      <if test="driverCity != null" >
+        #{driverCity,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.gred.easy_car.web.entity.DriverPosition" >
+    update ezc_driver_position
+    <set >
+      <if test="driverCurrentPosition != null" >
+        driver_current_position = #{driverCurrentPosition,jdbcType=VARCHAR},
+      </if>
+      <if test="driverPositionLastUpdateTime != null" >
+        driver_position_last_update_time = #{driverPositionLastUpdateTime,jdbcType=VARCHAR},
+      </if>
+      <if test="driverProvince != null" >
+        driver_province = #{driverProvince,jdbcType=VARCHAR},
+      </if>
+      <if test="driverCity != null" >
+        driver_city = #{driverCity,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where driver_id = #{driverId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.gred.easy_car.web.entity.DriverPosition" >
+    update ezc_driver_position
+    set driver_current_position = #{driverCurrentPosition,jdbcType=VARCHAR},
+      driver_position_last_update_time = #{driverPositionLastUpdateTime,jdbcType=VARCHAR},
+      driver_province = #{driverProvince,jdbcType=VARCHAR},
+      driver_city = #{driverCity,jdbcType=VARCHAR}
+    where driver_id = #{driverId,jdbcType=VARCHAR}
+  </update>
+</mapper>

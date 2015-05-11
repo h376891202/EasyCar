@@ -8,10 +8,8 @@
  */
 package com.gred.easy_car.web.controller.mobile;
 
-import java.text.SimpleDateFormat;
-import java.util.HashMap;
+
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
@@ -20,17 +18,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.gred.easy_car.common.constant.SMSInterfaceInfo;
-import com.gred.easy_car.common.constant.SMSInvokeResult;
 import com.gred.easy_car.common.enums.LogLevel;
 import com.gred.easy_car.common.utils.EHCacheUtils;
-import com.gred.easy_car.common.utils.HttpUtils;
 import com.gred.easy_car.common.utils.Log4jUtils;
-import com.gred.easy_car.common.utils.RandomNumberUtils;
 import com.gred.easy_car.web.entity.Car;
 import com.gred.easy_car.web.entity.CarOwner;
 import com.gred.easy_car.web.entity.JsonResult;
@@ -47,6 +42,7 @@ import com.gred.easy_car.web.service.CarOwnerService;
 @RequestMapping(value="login")
 public class MobileTerminalAccessController {
 	
+	private  final String ERROR_MESSAGE_CACHE = "ErrorMessageCache";
 	
 	private static final Log4jUtils log = new Log4jUtils(MobileTerminalAccessController.class);
 	
@@ -54,15 +50,57 @@ public class MobileTerminalAccessController {
 	private CarOwnerService carOwnerService;
 
 	
-	@RequestMapping(value="/register",method=RequestMethod.POST)
-	public  JsonResult<Object> mobileTerminalRegister(@Valid CarOwner carOwner,@Valid Car car,HttpServletRequest request,BindingResult result){
-
+	/**
+	 * 
+	 * @Title: mobileTerminalLogin   
+	 * @Description: 移动端登陆
+	 * @param @param carOwner
+	 * @param @param result
+	 * @param @return    
+	 * @return JsonResult<Object>    返回类型   
+	 * @throws
+	 */
+	@RequestMapping(method=RequestMethod.POST)
+	public JsonResult<Object> mobileTerminalLogin(@Valid CarOwner carOwner,BindingResult result){
+		JsonResult<Object> jsonResult = new JsonResult<>();
 		if(result.hasErrors()){
 			 List<ObjectError> ls=result.getAllErrors();  
 		     log.log(LogLevel.ERROR, "【移动端注册模块】：参数校验失败"+"error:"+ls.toString());
+		     jsonResult.setStatus(101);
+		     String  message = (String) EHCacheUtils.getElementValueFromCache(ERROR_MESSAGE_CACHE, "101");
+		     jsonResult.setStatusMessage(message);
+		     return jsonResult;
 		}
+		jsonResult = carOwnerService.validateCarOwner(carOwner);
 		
+		return jsonResult;
+	}
+	
+	
+	/**
+	 * 
+	 * @Title: mobileTerminalRegister   
+	 * @Description: 移动端注册
+	 * @param @param carOwner
+	 * @param @param car
+	 * @param @param request
+	 * @param @param result
+	 * @param @return    
+	 * @return JsonResult<Object>    返回类型   
+	 * @throws
+	 */
+	@RequestMapping(value="/register",method=RequestMethod.POST)
+	public  JsonResult<Object> mobileTerminalRegister(@Valid CarOwner carOwner,@Valid Car car,HttpServletRequest request,BindingResult result){
 		JsonResult<Object> jsonResult = new JsonResult<>();
+		
+		if(result.hasErrors()){
+			 List<ObjectError> ls=result.getAllErrors();  
+		     log.log(LogLevel.ERROR, "【移动端注册模块】：参数校验失败"+"error:"+ls.toString());
+		     jsonResult.setStatus(101);
+		     String  message = (String) EHCacheUtils.getElementValueFromCache(ERROR_MESSAGE_CACHE, "101");
+		     jsonResult.setStatusMessage(message);
+		     return jsonResult;
+		}
 		
 		jsonResult =carOwnerService.mobileTerminalRegester(carOwner, car);
 		
@@ -78,12 +116,22 @@ public class MobileTerminalAccessController {
 	 * @return void    返回类型   
 	 * @throws
 	 */
-	@RequestMapping(value="/IdentifyingCode",method=RequestMethod.GET)
-	public void sendIdentifyingCode(HttpServletRequest request){
+	@RequestMapping(value="/IdentifyingCode/{mobileNumber}",method=RequestMethod.GET)
+	public JsonResult<Object> sendIdentifyingCode(HttpServletRequest request,@PathVariable String mobileNumber){
+		JsonResult<Object> jsonResult = new JsonResult<>();
 		
-		String mobileNumber =request.getParameter("mobileNumber").trim();
-
-		carOwnerService.getSMSCode(mobileNumber);
+		if(StringUtils.isEmpty(mobileNumber)){
+			log.log(LogLevel.ERROR, "【移动端注册模块】：请求中不存在 mobileNumber 参数！");
+			jsonResult.setStatus(108);
+			String message = (String) EHCacheUtils.getElementValueFromCache(ERROR_MESSAGE_CACHE, "108");
+			jsonResult.setStatusMessage(message);
+			return jsonResult;
+		}
+		
+		
+		jsonResult= carOwnerService.getSMSCode(mobileNumber);
+		
+		return jsonResult;
 	}
 	
 }

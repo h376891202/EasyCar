@@ -108,8 +108,8 @@
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
-			<version>3.8.1</version>
-			<scope>test</scope>
+			<version>4.10</version>
+			<scope>compile</scope> 
 		</dependency>
 		<!-- juint end -->
 
@@ -229,7 +229,7 @@
 			<groupId>log4j</groupId>
 			<artifactId>log4j</artifactId>
 			<version>1.2.16</version>
-			<scope>runtime</scope>
+			<scope>compile</scope>
 		</dependency>
 		<!-- log end -->
 

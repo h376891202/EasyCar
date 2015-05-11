@@ -34,16 +34,7 @@ public interface CarOwnerService extends BaseService<CarOwner, String> {
 	
 	JsonResult<Object>  mobileTerminalRegester(CarOwner carOwner,Car car);
 	
-	/**
-	 * 
-	 * @Title: mobileTerminalLogin   
-	 * @Description: 移动端车主登陆 
-	 * @param @param carOwner
-	 * @param @return    
-	 * @return JsonResult<Car>    返回类型   
-	 * @throws
-	 */
-	JsonResult<Car>  mobileTerminalLogin(CarOwner carOwner);
+	
 	
 	/**
 	 * @return 
@@ -53,6 +44,16 @@ public interface CarOwnerService extends BaseService<CarOwner, String> {
 	 * @param @param mobileNumber 
 	 * @throws
 	 */
-	 void getSMSCode(String mobileNumber);
+	 JsonResult<Object> getSMSCode(String mobileNumber);
+
+	/**
+	 * @param carOwner 
+	 * @Title: validateCarOwner   
+	 * @Description: 验证用户登陆
+	 * @param @return    
+	 * @return JsonResult<Object>    返回类型   
+	 * @throws   
+	 */
+	JsonResult<Object> validateCarOwner(CarOwner carOwner);
 	
 }

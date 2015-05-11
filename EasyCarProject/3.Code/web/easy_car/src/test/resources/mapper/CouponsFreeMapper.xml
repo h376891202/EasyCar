@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gred.easy_car.web.mapper.CouponsFreeMapper" >
+  <resultMap id="BaseResultMap" type="com.gred.easy_car.web.entity.CouponsFree" >
+    <id column="coupon_id" property="couponId" jdbcType="VARCHAR" />
+    <result column="coupon_code" property="couponCode" jdbcType="VARCHAR" />
+    <result column="coupon_create_date" property="couponCreateDate" jdbcType="VARCHAR" />
+    <result column="coupon_expiry_date" property="couponExpiryDate" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    coupon_id, coupon_code, coupon_create_date, coupon_expiry_date
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from ezc_coupons_free
+    where coupon_id = #{couponId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from ezc_coupons_free
+    where coupon_id = #{couponId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.gred.easy_car.web.entity.CouponsFree" >
+    insert into ezc_coupons_free (coupon_id, coupon_code, coupon_create_date, 
+      coupon_expiry_date)
+    values (#{couponId,jdbcType=VARCHAR}, #{couponCode,jdbcType=VARCHAR}, #{couponCreateDate,jdbcType=VARCHAR}, 
+      #{couponExpiryDate,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.gred.easy_car.web.entity.CouponsFree" >
+    insert into ezc_coupons_free
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="couponId != null" >
+        coupon_id,
+      </if>
+      <if test="couponCode != null" >
+        coupon_code,
+      </if>
+      <if test="couponCreateDate != null" >
+        coupon_create_date,
+      </if>
+      <if test="couponExpiryDate != null" >
+        coupon_expiry_date,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="couponId != null" >
+        #{couponId,jdbcType=VARCHAR},
+      </if>
+      <if test="couponCode != null" >
+        #{couponCode,jdbcType=VARCHAR},
+      </if>
+      <if test="couponCreateDate != null" >
+        #{couponCreateDate,jdbcType=VARCHAR},
+      </if>
+      <if test="couponExpiryDate != null" >
+        #{couponExpiryDate,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.gred.easy_car.web.entity.CouponsFree" >
+    update ezc_coupons_free
+    <set >
+      <if test="couponCode != null" >
+        coupon_code = #{couponCode,jdbcType=VARCHAR},
+      </if>
+      <if test="couponCreateDate != null" >
+        coupon_create_date = #{couponCreateDate,jdbcType=VARCHAR},
+      </if>
+      <if test="couponExpiryDate != null" >
+        coupon_expiry_date = #{couponExpiryDate,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where coupon_id = #{couponId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.gred.easy_car.web.entity.CouponsFree" >
+    update ezc_coupons_free
+    set coupon_code = #{couponCode,jdbcType=VARCHAR},
+      coupon_create_date = #{couponCreateDate,jdbcType=VARCHAR},
+      coupon_expiry_date = #{couponExpiryDate,jdbcType=VARCHAR}
+    where coupon_id = #{couponId,jdbcType=VARCHAR}
+  </update>
+</mapper>

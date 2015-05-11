@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gred.easy_car.web.mapper.DriverMapper" >
+  <resultMap id="BaseResultMap" type="com.gred.easy_car.web.entity.Driver" >
+    <id column="driver_id" property="driverId" jdbcType="VARCHAR" />
+    <result column="company_id" property="companyId" jdbcType="VARCHAR" />
+    <result column="driver_name" property="driverName" jdbcType="VARCHAR" />
+    <result column="driver_mobile" property="driverMobile" jdbcType="VARCHAR" />
+    <result column="driver_password" property="driverPassword" jdbcType="VARCHAR" />
+    <result column="driver_id_card_number" property="driverIdCardNumber" jdbcType="VARCHAR" />
+    <result column="driver_license_number" property="driverLicenseNumber" jdbcType="VARCHAR" />
+    <result column="driver_bank_account" property="driverBankAccount" jdbcType="VARCHAR" />
+    <result column="driver_license_photo" property="driverLicensePhoto" jdbcType="VARCHAR" />
+    <result column="driver_age" property="driverAge" jdbcType="INTEGER" />
+    <result column="driver_star_lever" property="driverStarLever" jdbcType="INTEGER" />
+    <result column="driver_is_discard" property="driverIsDiscard" jdbcType="INTEGER" />
+    <result column="driver_is_ready" property="driverIsReady" jdbcType="INTEGER" />
+    <result column="driver_is_driving" property="driverIsDriving" jdbcType="INTEGER" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.gred.easy_car.web.entity.Driver" extends="BaseResultMap" >
+    <result column="driver_head_portrait" property="driverHeadPortrait" jdbcType="LONGVARBINARY" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    driver_id, company_id, driver_name, driver_mobile, driver_password, driver_id_card_number, 
+    driver_license_number, driver_bank_account, driver_license_photo, driver_age, driver_star_lever, 
+    driver_is_discard, driver_is_ready, driver_is_driving
+  </sql>
+  <sql id="Blob_Column_List" >
+    driver_head_portrait
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from ezc_driver
+    where driver_id = #{driverId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from ezc_driver
+    where driver_id = #{driverId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.gred.easy_car.web.entity.Driver" >
+    insert into ezc_driver (driver_id, company_id, driver_name, 
+      driver_mobile, driver_password, driver_id_card_number, 
+      driver_license_number, driver_bank_account, 
+      driver_license_photo, driver_age, driver_star_lever, 
+      driver_is_discard, driver_is_ready, driver_is_driving, 
+      driver_head_portrait)
+    values (#{driverId,jdbcType=VARCHAR}, #{companyId,jdbcType=VARCHAR}, #{driverName,jdbcType=VARCHAR}, 
+      #{driverMobile,jdbcType=VARCHAR}, #{driverPassword,jdbcType=VARCHAR}, #{driverIdCardNumber,jdbcType=VARCHAR}, 
+      #{driverLicenseNumber,jdbcType=VARCHAR}, #{driverBankAccount,jdbcType=VARCHAR}, 
+      #{driverLicensePhoto,jdbcType=VARCHAR}, #{driverAge,jdbcType=INTEGER}, #{driverStarLever,jdbcType=INTEGER}, 
+      #{driverIsDiscard,jdbcType=INTEGER}, #{driverIsReady,jdbcType=INTEGER}, #{driverIsDriving,jdbcType=INTEGER}, 
+      #{driverHeadPortrait,jdbcType=LONGVARBINARY})
+  </insert>
+  <insert id="insertSelective" parameterType="com.gred.easy_car.web.entity.Driver" >
+    insert into ezc_driver
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="driverId != null" >
+        driver_id,
+      </if>
+      <if test="companyId != null" >
+        company_id,
+      </if>
+      <if test="driverName != null" >
+        driver_name,
+      </if>
+      <if test="driverMobile != null" >
+        driver_mobile,
+      </if>
+      <if test="driverPassword != null" >
+        driver_password,
+      </if>
+      <if test="driverIdCardNumber != null" >
+        driver_id_card_number,
+      </if>
+      <if test="driverLicenseNumber != null" >
+        driver_license_number,
+      </if>
+      <if test="driverBankAccount != null" >
+        driver_bank_account,
+      </if>
+      <if test="driverLicensePhoto != null" >
+        driver_license_photo,
+      </if>
+      <if test="driverAge != null" >
+        driver_age,
+      </if>
+      <if test="driverStarLever != null" >
+        driver_star_lever,
+      </if>
+      <if test="driverIsDiscard != null" >
+        driver_is_discard,
+      </if>
+      <if test="driverIsReady != null" >
+        driver_is_ready,
+      </if>
+      <if test="driverIsDriving != null" >
+        driver_is_driving,
+      </if>
+      <if test="driverHeadPortrait != null" >
+        driver_head_portrait,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="driverId != null" >
+        #{driverId,jdbcType=VARCHAR},
+      </if>
+      <if test="companyId != null" >
+        #{companyId,jdbcType=VARCHAR},
+      </if>
+      <if test="driverName != null" >
+        #{driverName,jdbcType=VARCHAR},
+      </if>
+      <if test="driverMobile != null" >
+        #{driverMobile,jdbcType=VARCHAR},
+      </if>
+      <if test="driverPassword != null" >
+        #{driverPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="driverIdCardNumber != null" >
+        #{driverIdCardNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="driverLicenseNumber != null" >
+        #{driverLicenseNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="driverBankAccount != null" >
+        #{driverBankAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="driverLicensePhoto != null" >
+        #{driverLicensePhoto,jdbcType=VARCHAR},
+      </if>
+      <if test="driverAge != null" >
+        #{driverAge,jdbcType=INTEGER},
+      </if>
+      <if test="driverStarLever != null" >
+        #{driverStarLever,jdbcType=INTEGER},
+      </if>
+      <if test="driverIsDiscard != null" >
+        #{driverIsDiscard,jdbcType=INTEGER},
+      </if>
+      <if test="driverIsReady != null" >
+        #{driverIsReady,jdbcType=INTEGER},
+      </if>
+      <if test="driverIsDriving != null" >
+        #{driverIsDriving,jdbcType=INTEGER},
+      </if>
+      <if test="driverHeadPortrait != null" >
+        #{driverHeadPortrait,jdbcType=LONGVARBINARY},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.gred.easy_car.web.entity.Driver" >
+    update ezc_driver
+    <set >
+      <if test="companyId != null" >
+        company_id = #{companyId,jdbcType=VARCHAR},
+      </if>
+      <if test="driverName != null" >
+        driver_name = #{driverName,jdbcType=VARCHAR},
+      </if>
+      <if test="driverMobile != null" >
+        driver_mobile = #{driverMobile,jdbcType=VARCHAR},
+      </if>
+      <if test="driverPassword != null" >
+        driver_password = #{driverPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="driverIdCardNumber != null" >
+        driver_id_card_number = #{driverIdCardNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="driverLicenseNumber != null" >
+        driver_license_number = #{driverLicenseNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="driverBankAccount != null" >
+        driver_bank_account = #{driverBankAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="driverLicensePhoto != null" >
+        driver_license_photo = #{driverLicensePhoto,jdbcType=VARCHAR},
+      </if>
+      <if test="driverAge != null" >
+        driver_age = #{driverAge,jdbcType=INTEGER},
+      </if>
+      <if test="driverStarLever != null" >
+        driver_star_lever = #{driverStarLever,jdbcType=INTEGER},
+      </if>
+      <if test="driverIsDiscard != null" >
+        driver_is_discard = #{driverIsDiscard,jdbcType=INTEGER},
+      </if>
+      <if test="driverIsReady != null" >
+        driver_is_ready = #{driverIsReady,jdbcType=INTEGER},
+      </if>
+      <if test="driverIsDriving != null" >
+        driver_is_driving = #{driverIsDriving,jdbcType=INTEGER},
+      </if>
+      <if test="driverHeadPortrait != null" >
+        driver_head_portrait = #{driverHeadPortrait,jdbcType=LONGVARBINARY},
+      </if>
+    </set>
+    where driver_id = #{driverId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.gred.easy_car.web.entity.Driver" >
+    update ezc_driver
+    set company_id = #{companyId,jdbcType=VARCHAR},
+      driver_name = #{driverName,jdbcType=VARCHAR},
+      driver_mobile = #{driverMobile,jdbcType=VARCHAR},
+      driver_password = #{driverPassword,jdbcType=VARCHAR},
+      driver_id_card_number = #{driverIdCardNumber,jdbcType=VARCHAR},
+      driver_license_number = #{driverLicenseNumber,jdbcType=VARCHAR},
+      driver_bank_account = #{driverBankAccount,jdbcType=VARCHAR},
+      driver_license_photo = #{driverLicensePhoto,jdbcType=VARCHAR},
+      driver_age = #{driverAge,jdbcType=INTEGER},
+      driver_star_lever = #{driverStarLever,jdbcType=INTEGER},
+      driver_is_discard = #{driverIsDiscard,jdbcType=INTEGER},
+      driver_is_ready = #{driverIsReady,jdbcType=INTEGER},
+      driver_is_driving = #{driverIsDriving,jdbcType=INTEGER},
+      driver_head_portrait = #{driverHeadPortrait,jdbcType=LONGVARBINARY}
+    where driver_id = #{driverId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.gred.easy_car.web.entity.Driver" >
+    update ezc_driver
+    set company_id = #{companyId,jdbcType=VARCHAR},
+      driver_name = #{driverName,jdbcType=VARCHAR},
+      driver_mobile = #{driverMobile,jdbcType=VARCHAR},
+      driver_password = #{driverPassword,jdbcType=VARCHAR},
+      driver_id_card_number = #{driverIdCardNumber,jdbcType=VARCHAR},
+      driver_license_number = #{driverLicenseNumber,jdbcType=VARCHAR},
+      driver_bank_account = #{driverBankAccount,jdbcType=VARCHAR},
+      driver_license_photo = #{driverLicensePhoto,jdbcType=VARCHAR},
+      driver_age = #{driverAge,jdbcType=INTEGER},
+      driver_star_lever = #{driverStarLever,jdbcType=INTEGER},
+      driver_is_discard = #{driverIsDiscard,jdbcType=INTEGER},
+      driver_is_ready = #{driverIsReady,jdbcType=INTEGER},
+      driver_is_driving = #{driverIsDriving,jdbcType=INTEGER}
+    where driver_id = #{driverId,jdbcType=VARCHAR}
+  </update>
+</mapper>

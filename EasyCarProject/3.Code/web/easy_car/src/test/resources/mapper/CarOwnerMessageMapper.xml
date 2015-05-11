@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gred.easy_car.web.mapper.CarOwnerMessageMapper" >
+  <resultMap id="BaseResultMap" type="com.gred.easy_car.web.entity.CarOwnerMessage" >
+    <id column="car_owner_message_id" property="carOwnerMessageId" jdbcType="VARCHAR" />
+    <result column="car_owner_message_car_owner_id" property="carOwnerMessageCarOwnerId" jdbcType="VARCHAR" />
+    <result column="car_owner_message_type" property="carOwnerMessageType" jdbcType="INTEGER" />
+    <result column="car_owner_message_content" property="carOwnerMessageContent" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    car_owner_message_id, car_owner_message_car_owner_id, car_owner_message_type, car_owner_message_content
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from ezc_car_owner_message
+    where car_owner_message_id = #{carOwnerMessageId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from ezc_car_owner_message
+    where car_owner_message_id = #{carOwnerMessageId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.gred.easy_car.web.entity.CarOwnerMessage" >
+    insert into ezc_car_owner_message (car_owner_message_id, car_owner_message_car_owner_id, 
+      car_owner_message_type, car_owner_message_content
+      )
+    values (#{carOwnerMessageId,jdbcType=VARCHAR}, #{carOwnerMessageCarOwnerId,jdbcType=VARCHAR}, 
+      #{carOwnerMessageType,jdbcType=INTEGER}, #{carOwnerMessageContent,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.gred.easy_car.web.entity.CarOwnerMessage" >
+    insert into ezc_car_owner_message
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="carOwnerMessageId != null" >
+        car_owner_message_id,
+      </if>
+      <if test="carOwnerMessageCarOwnerId != null" >
+        car_owner_message_car_owner_id,
+      </if>
+      <if test="carOwnerMessageType != null" >
+        car_owner_message_type,
+      </if>
+      <if test="carOwnerMessageContent != null" >
+        car_owner_message_content,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="carOwnerMessageId != null" >
+        #{carOwnerMessageId,jdbcType=VARCHAR},
+      </if>
+      <if test="carOwnerMessageCarOwnerId != null" >
+        #{carOwnerMessageCarOwnerId,jdbcType=VARCHAR},
+      </if>
+      <if test="carOwnerMessageType != null" >
+        #{carOwnerMessageType,jdbcType=INTEGER},
+      </if>
+      <if test="carOwnerMessageContent != null" >
+        #{carOwnerMessageContent,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.gred.easy_car.web.entity.CarOwnerMessage" >
+    update ezc_car_owner_message
+    <set >
+      <if test="carOwnerMessageCarOwnerId != null" >
+        car_owner_message_car_owner_id = #{carOwnerMessageCarOwnerId,jdbcType=VARCHAR},
+      </if>
+      <if test="carOwnerMessageType != null" >
+        car_owner_message_type = #{carOwnerMessageType,jdbcType=INTEGER},
+      </if>
+      <if test="carOwnerMessageContent != null" >
+        car_owner_message_content = #{carOwnerMessageContent,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where car_owner_message_id = #{carOwnerMessageId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.gred.easy_car.web.entity.CarOwnerMessage" >
+    update ezc_car_owner_message
+    set car_owner_message_car_owner_id = #{carOwnerMessageCarOwnerId,jdbcType=VARCHAR},
+      car_owner_message_type = #{carOwnerMessageType,jdbcType=INTEGER},
+      car_owner_message_content = #{carOwnerMessageContent,jdbcType=VARCHAR}
+    where car_owner_message_id = #{carOwnerMessageId,jdbcType=VARCHAR}
+  </update>
+</mapper>

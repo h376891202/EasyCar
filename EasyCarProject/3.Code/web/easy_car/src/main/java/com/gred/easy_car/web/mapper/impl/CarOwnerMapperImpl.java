@@ -21,6 +21,19 @@ import com.gred.easy_car.web.mapper.CarOwnerMapper;
  *
  */
 @Repository
-public class CarOwnerMapperImpl extends BaseMapperImpl<CarOwner, String> implements CarOwnerMapper{ 
+public class CarOwnerMapperImpl extends BaseMapperImpl<CarOwner, String> implements CarOwnerMapper{
+
+	/* 
+	 * <p>Title: selectByMobile</p>   
+	 * <p>Description: </p>   
+	 * @param mobileNumber
+	 * @return   
+	 * @see com.gred.easy_car.web.mapper.CarOwnerMapper#selectByMobile(java.lang.String)   
+	 */   
+	@Override
+	public CarOwner selectByMobile(String userMobile) {
+	
+		return selectByMobile(userMobile);
+	} 
 
 }

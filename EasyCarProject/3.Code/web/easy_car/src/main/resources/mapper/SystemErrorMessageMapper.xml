@@ -8,7 +8,7 @@
   <sql id="Base_Column_List" >
     error_code, error_message
   </sql>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.VARCHAR" >
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 
     <include refid="Base_Column_List" />
     from ezc_system_error_code
@@ -22,7 +22,7 @@
    
   </select>
   
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.VARCHAR" >
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
     delete from ezc_system_error_code
     where error_code = #{errorCode,jdbcType=VARCHAR}
   </delete>
