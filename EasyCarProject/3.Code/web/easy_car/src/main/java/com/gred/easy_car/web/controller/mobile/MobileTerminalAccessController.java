@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.gred.easy_car.common.constant.SystemMessageConstant;
 import com.gred.easy_car.common.enums.LogLevel;
 import com.gred.easy_car.common.utils.EHCacheUtils;
 import com.gred.easy_car.common.utils.Log4jUtils;
@@ -42,7 +43,6 @@ import com.gred.easy_car.web.service.CarOwnerService;
 @RequestMapping(value="login")
 public class MobileTerminalAccessController {
 	
-	private  final String ERROR_MESSAGE_CACHE = "ErrorMessageCache";
 	
 	private static final Log4jUtils log = new Log4jUtils(MobileTerminalAccessController.class);
 	
@@ -65,9 +65,9 @@ public class MobileTerminalAccessController {
 		JsonResult<Object> jsonResult = new JsonResult<>();
 		if(result.hasErrors()){
 			 List<ObjectError> ls=result.getAllErrors();  
-		     log.log(LogLevel.ERROR, "【移动端注册模块】：参数校验失败"+"error:"+ls.toString());
+		     log.log(LogLevel.ERROR, "【移动端登陆模块】：参数校验失败"+"error:"+ls.toString());
 		     jsonResult.setStatus(101);
-		     String  message = (String) EHCacheUtils.getElementValueFromCache(ERROR_MESSAGE_CACHE, "101");
+		     String  message = (String) EHCacheUtils.getElementValueFromCache(SystemMessageConstant.ERROR_MESSAGE_CACHE, "101");
 		     jsonResult.setStatusMessage(message);
 		     return jsonResult;
 		}
@@ -90,19 +90,19 @@ public class MobileTerminalAccessController {
 	 * @throws
 	 */
 	@RequestMapping(value="/register",method=RequestMethod.POST)
-	public  JsonResult<Object> mobileTerminalRegister(@Valid CarOwner carOwner,@Valid Car car,HttpServletRequest request,BindingResult result){
+	public  JsonResult<Object> mobileTerminalRegister(@Valid CarOwner carOwner,BindingResult result){
 		JsonResult<Object> jsonResult = new JsonResult<>();
 		
 		if(result.hasErrors()){
 			 List<ObjectError> ls=result.getAllErrors();  
 		     log.log(LogLevel.ERROR, "【移动端注册模块】：参数校验失败"+"error:"+ls.toString());
 		     jsonResult.setStatus(101);
-		     String  message = (String) EHCacheUtils.getElementValueFromCache(ERROR_MESSAGE_CACHE, "101");
+		     String  message = (String) EHCacheUtils.getElementValueFromCache(SystemMessageConstant.ERROR_MESSAGE_CACHE, "101");
 		     jsonResult.setStatusMessage(message);
 		     return jsonResult;
 		}
 		
-		jsonResult =carOwnerService.mobileTerminalRegester(carOwner, car);
+		jsonResult =carOwnerService.mobileTerminalRegester(carOwner);
 		
 		return jsonResult;
 	}
@@ -116,14 +116,14 @@ public class MobileTerminalAccessController {
 	 * @return void    返回类型   
 	 * @throws
 	 */
-	@RequestMapping(value="/IdentifyingCode/{mobileNumber}",method=RequestMethod.GET)
-	public JsonResult<Object> sendIdentifyingCode(HttpServletRequest request,@PathVariable String mobileNumber){
+	@RequestMapping(value="/IdentifyingCode",method=RequestMethod.GET)
+	public JsonResult<Object> sendIdentifyingCode(HttpServletRequest request){
 		JsonResult<Object> jsonResult = new JsonResult<>();
-		
+		String mobileNumber = request.getParameter("mobileNumber");
 		if(StringUtils.isEmpty(mobileNumber)){
 			log.log(LogLevel.ERROR, "【移动端注册模块】：请求中不存在 mobileNumber 参数！");
 			jsonResult.setStatus(108);
-			String message = (String) EHCacheUtils.getElementValueFromCache(ERROR_MESSAGE_CACHE, "108");
+			String message = (String) EHCacheUtils.getElementValueFromCache(SystemMessageConstant.ERROR_MESSAGE_CACHE, "108");
 			jsonResult.setStatusMessage(message);
 			return jsonResult;
 		}
@@ -132,6 +132,24 @@ public class MobileTerminalAccessController {
 		jsonResult= carOwnerService.getSMSCode(mobileNumber);
 		
 		return jsonResult;
+	}
+	
+	/**
+	 * 
+	 * @Title: resetPassword   
+	 * @Description: 移动端重置密码
+	 * @param @param carOwner
+	 * @param @return    
+	 * @return JsonResult<Object>    返回类型   
+	 * @throws
+	 */
+	@RequestMapping(value ="/resetPwd",method=RequestMethod.POST)
+	public JsonResult<Object> resetPassword(CarOwner carOwner){
+		
+		JsonResult<Object> jsonResult = new JsonResult<>();
+		jsonResult= carOwnerService.resetPwd(carOwner);
+		return jsonResult;
+		
 	}
 	
 }

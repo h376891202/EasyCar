@@ -13,7 +13,14 @@
 
 
     <mvc:annotation-driven />
+    
+    
+      
+    
     <mvc:default-servlet-handler />
+  
+  	   
+	
    <bean id="mappingJacksonHttpMessageConverter"  
         class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">  
         <property name="supportedMediaTypes">  

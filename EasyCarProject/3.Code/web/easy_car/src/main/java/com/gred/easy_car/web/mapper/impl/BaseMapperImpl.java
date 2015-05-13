@@ -150,11 +150,9 @@ public abstract class BaseMapperImpl <T, PK extends Serializable> extends SqlSes
 		
 		
 		int rows = 0;  
-        try {  
-            rows = getSqlSession().insert(namespace + "." + SQLID_INSERT, entity);  
-        } catch (Exception e) {  
-            log.log(LogLevel.ERROR, "插入数据失败！", e); 
-        }  
+		
+        rows = getSqlSession().insert(namespace + "." + SQLID_INSERT, entity);  
+        
         return rows;  
 	}
 
@@ -175,11 +173,9 @@ public abstract class BaseMapperImpl <T, PK extends Serializable> extends SqlSes
 	public int updateByPrimaryKeySelective(T entity) {
 		
 		int rows = 0;  
-        try {  
-            rows = getSqlSession().update(namespace + "." + SQLID_UPDATE, entity);  
-        } catch (Exception e) {  
-        	 log.log(LogLevel.ERROR, "更新数据失败！", e); 
-        }  
+     
+        rows = getSqlSession().update(namespace + "." + SQLID_UPDATE, entity);  
+      
         return rows;  
 	}
 
@@ -197,11 +193,9 @@ public abstract class BaseMapperImpl <T, PK extends Serializable> extends SqlSes
 	public int updateParam(Map param) {
 		
 		int rows = 0;  
-        try {  
-            rows = getSqlSession().update(namespace + "." + SQLID_UPDATE_PARAM,   param);  
-        } catch (Exception e) {  
-        	 log.log(LogLevel.ERROR, "更新数据失败！", e);  
-        }  
+       
+        rows = getSqlSession().update(namespace + "." + SQLID_UPDATE_PARAM,   param);  
+       
         return rows;  
 	}
 
@@ -219,12 +213,10 @@ public abstract class BaseMapperImpl <T, PK extends Serializable> extends SqlSes
 	public int deleteByPrimaryKey(PK primaryKey) {
 		
 		int rows = 0;  
-	        try {  
-	            rows = getSqlSession().delete(namespace + "." + SQLID_DELETE,  primaryKey);  
-	        } catch (Exception e) {  
-	        	 log.log(LogLevel.ERROR, "删除数据失败！", e);   
-	        }  
-	        return rows;  
+	        
+	    rows = getSqlSession().delete(namespace + "." + SQLID_DELETE,  primaryKey);  
+	        
+	    return rows;  
 	}
 
 
@@ -241,12 +233,9 @@ public abstract class BaseMapperImpl <T, PK extends Serializable> extends SqlSes
 	public int deleteParam(Map param) {
 		
 		int rows = 0;  
-        try {  
-            rows = getSqlSession().delete(namespace + "." + SQLID_DELETE_PARAM,  
-                    param);  
-        } catch (Exception e) {  
-        	 log.log(LogLevel.ERROR, "删除数据失败！", e); 
-        }  
+        
+        rows = getSqlSession().delete(namespace + "." + SQLID_DELETE_PARAM,param);  
+       
         return rows;  
 	}
 
@@ -263,11 +252,9 @@ public abstract class BaseMapperImpl <T, PK extends Serializable> extends SqlSes
 	public int truncate() {
 		
 		int rows = 0;  
-        try {  
-            rows = getSqlSession().delete(namespace + "." + SQLID_TRUNCATE);  
-        } catch (Exception e) {  
-        	 log.log(LogLevel.ERROR, "擦除数据失败！", e);   
-        }  
+        
+        rows = getSqlSession().delete(namespace + "." + SQLID_TRUNCATE);  
+       
         return rows;  
 	}
 
@@ -284,11 +271,9 @@ public abstract class BaseMapperImpl <T, PK extends Serializable> extends SqlSes
 	public int count() {
 		
 		int result = 0;  
-        try {  
-            result = getSqlSession().selectOne(namespace + "." + SQLID_COUNT);  
-        } catch (Exception e) {  
-        	 log.log(LogLevel.ERROR, "计数失败！", e);  
-        }  
+        
+        result = getSqlSession().selectOne(namespace + "." + SQLID_COUNT);  
+      
         return result;  
 	}
 
@@ -306,11 +291,9 @@ public abstract class BaseMapperImpl <T, PK extends Serializable> extends SqlSes
 	public int count(Object param) {
 		
 		int result = 0;  
-        try {  
-            result = getSqlSession().selectOne(namespace + "." + SQLID_COUNT_PARAM,param);  
-        } catch (Exception e) {  
-        	log.log(LogLevel.ERROR, "计数失败！", e);  
-        }  
+       
+       result = getSqlSession().selectOne(namespace + "." + SQLID_COUNT_PARAM,param);  
+       
         return result;  
 	}
 
@@ -327,12 +310,8 @@ public abstract class BaseMapperImpl <T, PK extends Serializable> extends SqlSes
 	@Override
 	public T selectByPrimaryKey(PK primaryKey) {
 		
-		 try {  
 	            return getSqlSession().selectOne(namespace + "." + SQLID_SELECT_PK,primaryKey);  
-	        } catch (Exception e) {  
-	        	log.log(LogLevel.ERROR, "获取数据失败！", e);    
-	            return null;  
-	        }  
+	        
 	}
 
 
@@ -347,12 +326,8 @@ public abstract class BaseMapperImpl <T, PK extends Serializable> extends SqlSes
 	@Override
 	public List<T> selectAll() {
 		
-		try {  
             return getSqlSession().selectList(namespace + "." + SQLID_SELECT);  
-        } catch (Exception e) {  
-        	log.log(LogLevel.ERROR, "获取数据失败！", e);  
-            return null;  
-        }  
+      
 	}
 
 
@@ -368,12 +343,9 @@ public abstract class BaseMapperImpl <T, PK extends Serializable> extends SqlSes
 	@Override
 	public List<T> selectParam(Map param) {
 		
-		try {  
+	
             return getSqlSession().selectList(namespace + "." + SQLID_SELECT_PARAM,param);  
-        } catch (Exception e) {  
-        	log.log(LogLevel.ERROR, "获取数据失败！", e);    
-            return null;  
-        }  
+        
 	}
 
 
@@ -388,7 +360,7 @@ public abstract class BaseMapperImpl <T, PK extends Serializable> extends SqlSes
 	 */   
 	@Override
 	public PagingResult<T> selectPagination(Page pageEntity) {
-		try {  
+		
             int page = pageEntity.getPage() == null || "".equals(pageEntity.getPage()) ? 1 : pageEntity.getPage(); //默认为第一页  
             int size = pageEntity.getSize() == null || "".equals(pageEntity.getSize()) ? 15 : pageEntity.getSize();; //默认每页15个  
               
@@ -413,10 +385,7 @@ public abstract class BaseMapperImpl <T, PK extends Serializable> extends SqlSes
             pagingResult.setResultList(resultList);  
             return pagingResult;  
               
-        } catch (Exception e) {  
-        	log.log(LogLevel.ERROR, "获取分页数据失败！", e);  
-            return null;  
-        }  
+        
 	}
 
 
@@ -432,12 +401,9 @@ public abstract class BaseMapperImpl <T, PK extends Serializable> extends SqlSes
 	@Override
 	public int insertBatch(List<T> list) {
 		
-		 try {  
+	
 	            return getSqlSession().insert(namespace + "." + SQLID_INSERT_BATCH,list);  
-	        } catch (Exception e) {  
-	        	log.log(LogLevel.ERROR, "批量插入数据失败！", e);  
-	            return 0;  
-	        }  
+	    
 	}
 
 
@@ -454,13 +420,11 @@ public abstract class BaseMapperImpl <T, PK extends Serializable> extends SqlSes
 	public int updateBatch(List<T> list) {
 		
 		int rows = 0;  
-        try {  
+       
             for (T t : list) {  
                 rows = rows + getSqlSession().update(namespace + "." + SQLID_UPDATE, t);  
             }  
-        } catch (Exception e) {  
-        	log.log(LogLevel.ERROR, "批量更新数据失败！", e);   
-        }  
+       
         return rows;  
 	}
 
@@ -476,12 +440,9 @@ public abstract class BaseMapperImpl <T, PK extends Serializable> extends SqlSes
 	 */   
 	@Override
 	public int deleteBatch(List<PK> list) {
-		try {  
+		
             return getSqlSession().delete(namespace + "." + SQLID_DELETE_BATCH,list);  
-        } catch (Exception e) {  
-        	log.log(LogLevel.ERROR, "批量删除数据失败！", e);  
-            return 0;  
-        }  
+       
 	}
 	
 	/** 

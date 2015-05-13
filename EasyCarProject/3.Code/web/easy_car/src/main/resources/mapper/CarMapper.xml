@@ -15,17 +15,35 @@
     <result column="car_province" property="carProvince" jdbcType="VARCHAR" />
     <result column="car_city" property="carCity" jdbcType="VARCHAR" />
     <result column="car_is_servicing" property="carIsServicing" jdbcType="INTEGER" />
+   	<result column="car_brand_icon_pic_name" property="carBrandIconName" jdbcType="VARCHAR" />
   </resultMap>
+  
+  
   <sql id="Base_Column_List" >
     car_id, car_owner_id, car_brand_id, car_brand_type_id, car_owner_mobile, car_brand, 
     car_brand_type, car_plate_number, car_travelled_distance, car_position, car_province, 
     car_city, car_is_servicing
   </sql>
+  
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 
     <include refid="Base_Column_List" />
     from ezc_car
     where car_id = #{carId,jdbcType=VARCHAR}
+  </select>
+  <select id="selectByOwnerId" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />,
+    car_brand_icon_pic_name
+    
+    from ezc_car
+    left join
+    ezc_car_brand
+    on
+    ezc_car.car_brand = ezc_car_brand.car_brand_name
+    where 
+    car_owner_id = #{uid,jdbcType=VARCHAR}
+    
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
     delete from ezc_car
@@ -131,9 +149,7 @@
   <update id="updateByPrimaryKeySelective" parameterType="com.gred.easy_car.web.entity.Car" >
     update ezc_car
     <set >
-      <if test="carOwnerId != null" >
-        car_owner_id = #{carOwnerId,jdbcType=VARCHAR},
-      </if>
+      
       <if test="carBrandId != null" >
         car_brand_id = #{carBrandId,jdbcType=VARCHAR},
       </if>
@@ -186,4 +202,18 @@
       car_is_servicing = #{carIsServicing,jdbcType=INTEGER}
     where car_id = #{carId,jdbcType=VARCHAR}
   </update>
+  
+   <insert id="insertBatch"  parameterType="java.util.List">  
+        insert into ezc_car 
+        (car_id, car_owner_id,car_owner_mobile, car_brand, 
+            car_brand_type, car_plate_number, car_travelled_distance
+            )   
+        values  
+        <foreach collection="list" item="item" index="index" separator="," >  
+            (
+            #{item.carId,jdbcType=VARCHAR}, #{item.carOwnerId,jdbcType=VARCHAR},  #{item.carOwnerMobile,jdbcType=VARCHAR}, #{item.carBrand,jdbcType=VARCHAR}, 
+            #{item.carBrandType,jdbcType=VARCHAR}, #{item.carPlateNumber,jdbcType=VARCHAR}, #{item.carTravelledDistance,jdbcType=DECIMAL}
+            )  
+        </foreach>  
+   </insert>  
 </mapper>

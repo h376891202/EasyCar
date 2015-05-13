@@ -1,10 +1,16 @@
 package com.gred.easy_car.web.entity;
 
+import java.math.BigDecimal;
+
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 
 
+import javax.validation.constraints.NotNull;
+
+import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
+import org.hibernate.validator.constraints.Range;
 
 /**
  * 
@@ -22,9 +28,8 @@ public class CarOwner {
 	@NotBlank(message="车主电话不能为空！")
     private String userMobile;
 	
-	@Min(value=6,message="密码长度不够！")
-	@Max(value=16,message="密码过长！")
-	@NotBlank(message="密码不能为空！")
+	
+	@Length(max=16,min=6,message="密码长度要求6-16位")
     private String userPwd;
     
     private String repeatedPwd;
@@ -36,6 +41,18 @@ public class CarOwner {
     private String userDrivingPermitPath;
 
     private byte[] userHeadPortrait;
+    
+    /**封装参数用字段，与数据库非对应**/
+    
+    private String carBrand;
+    
+    private String carBrandType;
+    
+    private String carPlateNumber;
+    
+    private String  carTravelledDistance;
+    
+   
 
     public String getUserId() {
         return userId;
@@ -54,6 +71,20 @@ public class CarOwner {
     }
     
   
+
+	/**
+	 * @return the carTravelledDistance
+	 */
+	public String getCarTravelledDistance() {
+		return carTravelledDistance;
+	}
+
+	/**
+	 * @param carTravelledDistance the carTravelledDistance to set
+	 */
+	public void setCarTravelledDistance(String carTravelledDistance) {
+		this.carTravelledDistance = carTravelledDistance;
+	}
 
 	/**
 	 * @return the identifyingCode
@@ -115,4 +146,50 @@ public class CarOwner {
     public void setUserHeadPortrait(byte[] userHeadPortrait) {
         this.userHeadPortrait = userHeadPortrait;
     }
+
+	/**
+	 * @return the carBrand
+	 */
+	public String getCarBrand() {
+		return carBrand;
+	}
+
+	/**
+	 * @param carBrand the carBrand to set
+	 */
+	public void setCarBrand(String carBrand) {
+		this.carBrand = carBrand;
+	}
+
+	/**
+	 * @return the carBrandType
+	 */
+	public String getCarBrandType() {
+		return carBrandType;
+	}
+
+	/**
+	 * @param carBrandType the carBrandType to set
+	 */
+	public void setCarBrandType(String carBrandType) {
+		this.carBrandType = carBrandType;
+	}
+
+	/**
+	 * @return the carPlateNumber
+	 */
+	public String getCarPlateNumber() {
+		return carPlateNumber;
+	}
+
+	/**
+	 * @param carPlateNumber the carPlateNumber to set
+	 */
+	public void setCarPlateNumber(String carPlateNumber) {
+		this.carPlateNumber = carPlateNumber;
+	}
+
+	
+    
+    
 }

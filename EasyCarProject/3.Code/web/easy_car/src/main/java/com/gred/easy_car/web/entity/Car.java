@@ -1,6 +1,7 @@
 package com.gred.easy_car.web.entity;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 import javax.validation.constraints.NotNull;
 
@@ -17,7 +18,6 @@ public class Car {
 	
     private String carId;
     
-    @NotNull(message="车主ID不能为空")
     private String carOwnerId;
    
     private String carBrandId;
@@ -36,7 +36,7 @@ public class Car {
     private String carPlateNumber;
     
     @NotNull(message="车辆行驶里程不能为空")
-    private BigDecimal carTravelledDistance;
+    private float carTravelledDistance;
 
     private String carPosition;
 
@@ -45,6 +45,10 @@ public class Car {
     private String carCity;
 
     private Integer carIsServicing;
+    
+    private List<Car> carList;
+    
+    private String carBrandIconName;
 
     public String getCarId() {
         return carId;
@@ -110,15 +114,23 @@ public class Car {
         this.carPlateNumber = carPlateNumber == null ? null : carPlateNumber.trim();
     }
 
-    public BigDecimal getCarTravelledDistance() {
-        return carTravelledDistance;
-    }
+  
 
-    public void setCarTravelledDistance(BigDecimal carTravelledDistance) {
-        this.carTravelledDistance = carTravelledDistance;
-    }
+    /**
+	 * @return the carTravelledDistance
+	 */
+	public float getCarTravelledDistance() {
+		return carTravelledDistance;
+	}
 
-    public String getCarPosition() {
+	/**
+	 * @param carTravelledDistance the carTravelledDistance to set
+	 */
+	public void setCarTravelledDistance(float carTravelledDistance) {
+		this.carTravelledDistance = carTravelledDistance;
+	}
+
+	public String getCarPosition() {
         return carPosition;
     }
 
@@ -149,4 +161,35 @@ public class Car {
     public void setCarIsServicing(Integer carIsServicing) {
         this.carIsServicing = carIsServicing;
     }
+
+	/**
+	 * @return the carList
+	 */
+	public List<Car> getCarList() {
+		return carList;
+	}
+
+	/**
+	 * @param carList the carList to set
+	 */
+	public void setCarList(List<Car> carList) {
+		this.carList = carList;
+	}
+
+	/**
+	 * @return the carBrandIconPath
+	 */
+	public String getCarBrandIconPath() {
+		return carBrandIconName;
+	}
+
+	/**
+	 * @param carBrandIconPath the carBrandIconPath to set
+	 */
+	public void setCarBrandIconPath(String carBrandIconPath) {
+		this.carBrandIconName = carBrandIconPath;
+	}
+    
+	
+    
 }

@@ -10,6 +10,8 @@ package com.gred.easy_car.web.mapper.impl;
 
 import org.springframework.stereotype.Repository;
 
+import com.gred.easy_car.common.enums.LogLevel;
+import com.gred.easy_car.common.utils.Log4jUtils;
 import com.gred.easy_car.web.entity.CarOwner;
 import com.gred.easy_car.web.mapper.CarOwnerMapper;
 
@@ -23,6 +25,9 @@ import com.gred.easy_car.web.mapper.CarOwnerMapper;
 @Repository
 public class CarOwnerMapperImpl extends BaseMapperImpl<CarOwner, String> implements CarOwnerMapper{
 
+	private static final	Log4jUtils log = new Log4jUtils(CarOwnerMapperImpl.class);
+	
+	private static final String SQLID_SELECT_MOBILE = "selectByMobile";
 	/* 
 	 * <p>Title: selectByMobile</p>   
 	 * <p>Description: </p>   
@@ -33,7 +38,8 @@ public class CarOwnerMapperImpl extends BaseMapperImpl<CarOwner, String> impleme
 	@Override
 	public CarOwner selectByMobile(String userMobile) {
 	
-		return selectByMobile(userMobile);
+	            return getSqlSession().selectOne(namespace + "." + SQLID_SELECT_MOBILE,userMobile);  
+	       
 	} 
 
 }

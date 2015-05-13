@@ -32,7 +32,7 @@ public interface CarOwnerService extends BaseService<CarOwner, String> {
 	 * @throws
 	 */
 	
-	JsonResult<Object>  mobileTerminalRegester(CarOwner carOwner,Car car);
+	JsonResult<Object>  mobileTerminalRegester(CarOwner carOwner);
 	
 	
 	
@@ -55,5 +55,16 @@ public interface CarOwnerService extends BaseService<CarOwner, String> {
 	 * @throws   
 	 */
 	JsonResult<Object> validateCarOwner(CarOwner carOwner);
+
+
+
+	/**
+	 * @Title: resetPwd   
+	 * @Description: 重置密码接口
+	 * @param @param carOwner    
+	 * @return JsonResult<Object>     返回类型   
+	 * @throws   
+	 */
+	JsonResult<Object>  resetPwd(CarOwner carOwner);
 	
 }

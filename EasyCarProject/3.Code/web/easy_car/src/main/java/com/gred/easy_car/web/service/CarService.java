@@ -8,7 +8,10 @@
  */
 package com.gred.easy_car.web.service;
 
+import java.util.List;
+
 import com.gred.easy_car.web.entity.Car;
+import com.gred.easy_car.web.entity.JsonResult;
 
 /**
  * @ClassName: CarService   
@@ -18,5 +21,14 @@ import com.gred.easy_car.web.entity.Car;
  *
  */
 public interface CarService extends BaseService<Car, String>{
+
+	/**
+	 * @Title: listByOwnerMobile   
+	 * @Description: 根据车主手机号筛选车辆 
+	 * @param @return    
+	 * @return List<Car>    返回类型   
+	 * @throws   
+	 */
+	JsonResult<Car> listByOwnerId(String uid);
 
 }

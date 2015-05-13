@@ -19,8 +19,15 @@
    maxElementsInMemory="1000"
    overflowToDisk="true"
    diskPersistent="true"
-   timeToIdleSeconds="60"
-   timeToLiveSeconds="60"
+   timeToIdleSeconds="300"
+   timeToLiveSeconds="300"
+   memoryStoreEvictionPolicy="LRU" />
+   
+   <cache name="ErrorMessageCache"
+   eternal="true"
+   maxElementsInMemory="1000"
+   overflowToDisk="true"
+   diskPersistent="true"
    memoryStoreEvictionPolicy="LRU" />
 
 </ehcache>

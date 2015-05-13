@@ -8,8 +8,11 @@
  */
 package com.gred.easy_car.web.mapper.impl;
 
+import java.util.List;
+
 import org.springframework.stereotype.Repository;
 
+import com.gred.easy_car.common.utils.Log4jUtils;
 import com.gred.easy_car.web.entity.Car;
 import com.gred.easy_car.web.mapper.CarMapper;
 
@@ -22,5 +25,23 @@ import com.gred.easy_car.web.mapper.CarMapper;
  */
 @Repository
 public class CarMapperImpl extends BaseMapperImpl<Car, String> implements CarMapper{
+
+	
+   private static final	Log4jUtils log = new Log4jUtils(CarMapperImpl.class);
+	
+	private static final String SQLID_SELECT_OWNER_ID = "selectByOwnerId";
+	/* 
+	 * <p>Title: selectByOwnerId</p>   
+	 * <p>Description: </p>   
+	 * @param uid
+	 * @return   
+	 * @see com.gred.easy_car.web.mapper.CarMapper#selectByOwnerId(java.lang.String)   
+	 */   
+	@Override
+	public List<Car> selectByOwnerId(String uid) {
+		
+	  return getSqlSession().selectList(namespace + "." + SQLID_SELECT_OWNER_ID,uid);  
+	
+	}
 
 }
