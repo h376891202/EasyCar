@@ -18,6 +18,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
 import com.gred.easy_car.common.constant.SMSInterfaceInfo;
@@ -74,8 +75,9 @@ public class CarOwnerServiceImpl extends BaseServiceImpl<CarOwner, String> imple
 	 * @return   
 	 * @see com.gred.easy_car.web.service.CarOwnerService#mobileTerminalRegester(com.gred.easy_car.web.entity.CarOwner, com.gred.easy_car.web.entity.Car)   
 	 */   
+	@Transactional
 	@Override
-	public JsonResult<Object> mobileTerminalRegester(CarOwner carOwner, Car car) {
+	public JsonResult<Object> mobileTerminalRegester(CarOwner carOwner) {
 
 		JsonResult<Object> result = new JsonResult<>();
 		
@@ -99,7 +101,7 @@ public class CarOwnerServiceImpl extends BaseServiceImpl<CarOwner, String> imple
 			return result;
 		}
 		if(!StringUtils.isEmpty(carOwner.getRepeatedPwd())){
-			if(carOwner.getUserPwd().equals(carOwner.getRepeatedPwd())){
+			if(!carOwner.getUserPwd().equals(carOwner.getRepeatedPwd())){
 				result.setStatus(203);
 				String message = (String) EHCacheUtils.getElementValueFromCache(ERROR_MESSAGE_CACHE, "203");
 				result.setStatusMessage(message);
@@ -111,6 +113,7 @@ public class CarOwnerServiceImpl extends BaseServiceImpl<CarOwner, String> imple
 		try {
 			carOwner.setUserId(UUIDGenerator.generateUUID());
 			carOwner.setUserRegisterTime(format.format(new Date()));
+			carOwner.setUserPwd(CiphertextUtil.passAlgorithmsCiphering(carOwner.getUserPwd(), CiphertextUtil.MD5));
 			
 			save(carOwner);
 			
@@ -124,22 +127,28 @@ public class CarOwnerServiceImpl extends BaseServiceImpl<CarOwner, String> imple
 		}
 		
 		try {
+			Car car = new Car();
 			car.setCarId(UUIDGenerator.generateUUID());
 			car.setCarOwnerId(carOwner.getUserId());
 			car.setCarOwnerMobile(carOwner.getUserMobile());
+			car.setCarBrand(carOwner.getCarBrand());
+			car.setCarBrandType(carOwner.getCarBrandType());
+			car.setCarPlateNumber(carOwner.getCarPlateNumber());
+			car.setCarTravelledDistance(Float.valueOf(carOwner.getCarTravelledDistance()));
+			
 			carService.save(car);
 		} catch (DuplicateKeyException e) {
 			result.setStatus(106);
 			String message = (String) EHCacheUtils.getElementValueFromCache(ERROR_MESSAGE_CACHE, "106");
 			result.setStatusMessage(message);
-			log.log(LogLevel.ERROR, "【移动端注册模块】：注册失败，车牌号为："+car.getCarPlateNumber()+"，车辆已经存在！", e);
+			log.log(LogLevel.ERROR, "【移动端注册模块】：注册失败，车牌号为："+carOwner.getCarPlateNumber()+"，车辆已经存在！", e);
 			return result;
 		}
 		
 		result.setStatus(107);
 		String message = (String) EHCacheUtils.getElementValueFromCache(ERROR_MESSAGE_CACHE, "107");
 		result.setStatusMessage(message);
-		log.log(LogLevel.INFO, "【移动端注册模块】：注册成功，车牌号为："+car.getCarPlateNumber());
+		log.log(LogLevel.INFO, "【移动端注册模块】：注册成功，车牌号为："+carOwner.getCarPlateNumber());
 		
 		return result;
 	}
@@ -224,6 +233,58 @@ public class CarOwnerServiceImpl extends BaseServiceImpl<CarOwner, String> imple
 				return jsonResult;
 			}
 		}
+		
+		
+	}
+
+	/* 
+	 * <p>Title: resetPwd</p>   
+	 * <p>Description: </p>   
+	 * @param carOwner   
+	 * @see com.gred.easy_car.web.service.CarOwnerService#resetPwd(com.gred.easy_car.web.entity.CarOwner)   
+	 */   
+	@Transactional
+	@Override
+	public JsonResult<Object> resetPwd(CarOwner carOwner) {
+		
+		JsonResult<Object> jsonResult = new JsonResult<>();
+		//获取缓存中的六位短信验证码进行校验
+				String smsCodeInCache = (String) EHCacheUtils.getElementValueFromCache(IDENTIFYING_CODE_CACHE, carOwner.getUserMobile());
+				if(StringUtils.isEmpty(smsCodeInCache)){
+				//保证之前已经存入缓存的前提下 为空则说明已经失效
+					jsonResult.setStatus(201);
+					String message = (String) EHCacheUtils.getElementValueFromCache(ERROR_MESSAGE_CACHE, "201");
+					jsonResult.setStatusMessage(message);
+					log.log(LogLevel.INFO, "【移动端注册模块】：新用户注册，短信验证码验证失败："+message);
+					
+					return jsonResult;
+				}else if(!smsCodeInCache.equals(carOwner.getIdentifyingCode())){
+					//用户输入验证码和发送验证码不匹配
+					jsonResult.setStatus(202);
+					String message = (String) EHCacheUtils.getElementValueFromCache(ERROR_MESSAGE_CACHE, "202");
+					jsonResult.setStatusMessage(message);
+					log.log(LogLevel.INFO, "【移动端注册模块】：新用户注册，短信验证码验证失败："+message);
+					
+					return jsonResult;
+				}
+				
+				try {
+					CarOwner owner = carOwnerMapper.selectByMobile(carOwner.getUserMobile());
+					owner.setUserPwd(CiphertextUtil.passAlgorithmsCiphering(carOwner.getUserPwd(), CiphertextUtil.MD5));
+					carOwnerMapper.updateByPrimaryKeySelective(owner);
+				} catch (Exception e) {
+					jsonResult.setStatus(109);
+					String message = (String) EHCacheUtils.getElementValueFromCache(ERROR_MESSAGE_CACHE, "109");
+					jsonResult.setStatusMessage(message);
+					log.log(LogLevel.ERROR, "【移动端重置密码模块】：重置失败，用户电话号码号为："+carOwner.getUserMobile()+"，数据库操作异常！", e);
+					return jsonResult;
+				}
+				jsonResult.setStatus(110);
+				String message = (String) EHCacheUtils.getElementValueFromCache(ERROR_MESSAGE_CACHE, "110");
+				jsonResult.setStatusMessage(message);
+				log.log(LogLevel.ERROR, "【移动端重置密码模块】：重置成功，用户电话号码号为："+carOwner.getUserMobile());
+				
+				return jsonResult;
 		
 		
 	}

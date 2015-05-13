@@ -90,7 +90,7 @@ public class MobileTerminalAccessController {
 	 * @throws
 	 */
 	@RequestMapping(value="/register",method=RequestMethod.POST)
-	public  JsonResult<Object> mobileTerminalRegister(@Valid CarOwner carOwner,@Valid Car car,HttpServletRequest request,BindingResult result){
+	public  JsonResult<Object> mobileTerminalRegister(@Valid CarOwner carOwner,BindingResult result){
 		JsonResult<Object> jsonResult = new JsonResult<>();
 		
 		if(result.hasErrors()){
@@ -102,7 +102,7 @@ public class MobileTerminalAccessController {
 		     return jsonResult;
 		}
 		
-		jsonResult =carOwnerService.mobileTerminalRegester(carOwner, car);
+		jsonResult =carOwnerService.mobileTerminalRegester(carOwner);
 		
 		return jsonResult;
 	}
@@ -116,10 +116,10 @@ public class MobileTerminalAccessController {
 	 * @return void    返回类型   
 	 * @throws
 	 */
-	@RequestMapping(value="/IdentifyingCode/{mobileNumber}",method=RequestMethod.GET)
-	public JsonResult<Object> sendIdentifyingCode(HttpServletRequest request,@PathVariable String mobileNumber){
+	@RequestMapping(value="/IdentifyingCode",method=RequestMethod.GET)
+	public JsonResult<Object> sendIdentifyingCode(HttpServletRequest request){
 		JsonResult<Object> jsonResult = new JsonResult<>();
-		
+		String mobileNumber = request.getParameter("mobileNumber");
 		if(StringUtils.isEmpty(mobileNumber)){
 			log.log(LogLevel.ERROR, "【移动端注册模块】：请求中不存在 mobileNumber 参数！");
 			jsonResult.setStatus(108);
@@ -132,6 +132,24 @@ public class MobileTerminalAccessController {
 		jsonResult= carOwnerService.getSMSCode(mobileNumber);
 		
 		return jsonResult;
+	}
+	
+	/**
+	 * 
+	 * @Title: resetPassword   
+	 * @Description: 移动端重置密码
+	 * @param @param carOwner
+	 * @param @return    
+	 * @return JsonResult<Object>    返回类型   
+	 * @throws
+	 */
+	@RequestMapping(value ="/resetPwd",method=RequestMethod.POST)
+	public JsonResult<Object> resetPassword(CarOwner carOwner){
+		
+		JsonResult<Object> jsonResult = new JsonResult<>();
+		jsonResult= carOwnerService.resetPwd(carOwner);
+		return jsonResult;
+		
 	}
 	
 }
