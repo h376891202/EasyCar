@@ -8,6 +8,7 @@
  */
 package com.gred.easy_car.web.service.impl;
 
+
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +22,7 @@ import com.gred.easy_car.web.controller.mobile.CarBrandInfoController;
 import com.gred.easy_car.web.entity.CarBrand;
 import com.gred.easy_car.web.entity.JsonResult;
 import com.gred.easy_car.web.mapper.CarBrandMapper;
+
 import com.gred.easy_car.web.service.CarBrandService;
 
 /**
@@ -32,6 +34,7 @@ import com.gred.easy_car.web.service.CarBrandService;
  */
 @Service
 public class CarBrandServiceImpl  extends BaseServiceImpl<CarBrand, String> implements CarBrandService{
+
 
 	
 	
@@ -66,5 +69,6 @@ public class CarBrandServiceImpl  extends BaseServiceImpl<CarBrand, String> impl
 		 result.setData(carBrandList);
 		 return result;
 	}
+
 
 }

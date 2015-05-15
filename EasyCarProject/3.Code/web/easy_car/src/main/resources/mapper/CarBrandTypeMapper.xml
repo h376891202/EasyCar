@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
 <mapper namespace="com.gred.easy_car.web.mapper.CarBrandTypeMapper" >
   <resultMap id="BaseResultMap" type="com.gred.easy_car.web.entity.CarBrandType" >
+
     <result column="car_brand_type_id" property="carBrandTypeId" jdbcType="INTEGER" />
     <result column="car_first_letter" property="carFirstLetter" jdbcType="VARCHAR" />
     <result column="car_brand_name" property="carBrandName" jdbcType="VARCHAR" />
@@ -15,7 +17,9 @@
     <result column="car_engine_capacity" property="carEngineCapacity" jdbcType="VARCHAR" />
     <result column="car_transmission" property="carTransmission" jdbcType="VARCHAR" />
   </resultMap>
+
   <insert id="insert" parameterType="com.gred.easy_car.web.entity.CarBrandType" >
+
     insert into ezc_car_brand_type (car_brand_type_id, car_first_letter, car_brand_name, 
       car_model_series, car_model_name, car_type_series, 
       car_type_name, car_made_country, car_technology, 
@@ -27,7 +31,7 @@
       #{carVehicleClass,jdbcType=VARCHAR}, #{carEngineCapacity,jdbcType=VARCHAR}, #{carTransmission,jdbcType=VARCHAR}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.gred.easy_car.web.entity.CarBrandType" >
+  <insert id="insertSelective" parameterType="test.model.CarBrandType" >
     insert into ezc_car_brand_type
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="carBrandTypeId != null" >

@@ -8,6 +8,7 @@
  */
 package com.gred.easy_car.web.controller.mobile;
 
+
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.File;
@@ -29,6 +30,7 @@ import com.gred.easy_car.web.entity.CarBrand;
 import com.gred.easy_car.web.entity.JsonResult;
 import com.gred.easy_car.web.service.CarBrandService;
 
+
 /**
  * @ClassName: CarBrandInfoController   
  * @Description: 移动端获取车品牌信息
@@ -39,6 +41,7 @@ import com.gred.easy_car.web.service.CarBrandService;
 @RestController
 @RequestMapping(value="carBrand")
 public class CarBrandInfoController {
+
 
 	private static final Log4jUtils log = new Log4jUtils(CarBrandInfoController.class);
 	
@@ -101,6 +104,7 @@ public class CarBrandInfoController {
 				}
 		}
 
-	}
+
 	
+ }
 }

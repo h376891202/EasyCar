@@ -256,7 +256,9 @@ public class CarOwnerServiceImpl extends BaseServiceImpl<CarOwner, String> imple
 				if(StringUtils.isEmpty(smsCodeInCache)){
 				//保证之前已经存入缓存的前提下 为空则说明已经失效
 					jsonResult.setStatus(201);
+
 					String message = (String) EHCacheUtils.getElementValueFromCache(SystemMessageConstant.ERROR_MESSAGE_CACHE, "201");
+
 					jsonResult.setStatusMessage(message);
 					log.log(LogLevel.INFO, "【移动端注册模块】：新用户注册，短信验证码验证失败："+message);
 					
@@ -264,7 +266,9 @@ public class CarOwnerServiceImpl extends BaseServiceImpl<CarOwner, String> imple
 				}else if(!smsCodeInCache.equals(carOwner.getIdentifyingCode())){
 					//用户输入验证码和发送验证码不匹配
 					jsonResult.setStatus(202);
+
 					String message = (String) EHCacheUtils.getElementValueFromCache(SystemMessageConstant.ERROR_MESSAGE_CACHE, "202");
+
 					jsonResult.setStatusMessage(message);
 					log.log(LogLevel.INFO, "【移动端注册模块】：新用户注册，短信验证码验证失败："+message);
 					
@@ -277,13 +281,17 @@ public class CarOwnerServiceImpl extends BaseServiceImpl<CarOwner, String> imple
 					carOwnerMapper.updateByPrimaryKeySelective(owner);
 				} catch (Exception e) {
 					jsonResult.setStatus(109);
+
 					String message = (String) EHCacheUtils.getElementValueFromCache(SystemMessageConstant.ERROR_MESSAGE_CACHE, "109");
+
 					jsonResult.setStatusMessage(message);
 					log.log(LogLevel.ERROR, "【移动端重置密码模块】：重置失败，用户电话号码号为："+carOwner.getUserMobile()+"，数据库操作异常！", e);
 					return jsonResult;
 				}
 				jsonResult.setStatus(110);
+
 				String message = (String) EHCacheUtils.getElementValueFromCache(SystemMessageConstant.ERROR_MESSAGE_CACHE, "110");
+
 				jsonResult.setStatusMessage(message);
 				log.log(LogLevel.ERROR, "【移动端重置密码模块】：重置成功，用户电话号码号为："+carOwner.getUserMobile());
 				

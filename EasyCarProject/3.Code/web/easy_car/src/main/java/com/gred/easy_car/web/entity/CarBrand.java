@@ -24,6 +24,7 @@ public class CarBrand {
     private List<CarBrandType> carBrandTypeList;
 
 
+
     
     
 
@@ -68,6 +69,7 @@ public class CarBrand {
 	public void setCarBrandFirstLetter(String carBrandFirstLetter) {
 		this.carBrandFirstLetter = carBrandFirstLetter;
 	}
+
 
 	public String getCarBrandName() {
         return carBrandName;

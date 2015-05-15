@@ -2,7 +2,9 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.gred.easy_car.web.mapper.CarBrandMapper" >
   <resultMap id="BaseResultMap" type="com.gred.easy_car.web.entity.CarBrand" >
+
   	<result column="car_brand_first_letter" property="carBrandFirstLetter" jdbcType="VARCHAR" />
+
     <result column="car_brand_name" property="carBrandName" jdbcType="VARCHAR" />
     <result column="car_brand_icon_pic_name" property="carBrandIconPicName" jdbcType="VARCHAR" />
     
@@ -33,14 +35,17 @@
   </resultMap>
   
   <sql id="Base_Column_List" >
+
  	car_brand_first_letter,car_brand_name,car_brand_icon_pic_name
   </sql>
   <sql id="Marked_Base_Column_List" >
  	b.car_brand_first_letter,b.car_brand_name,car_brand_icon_pic_name
+
   </sql>
   <sql id="Blob_Column_List" >
     car_brand_icon
   </sql>
+
   <sql id="Brand_Type_Column_List" >
  	car_brand_type_id,car_first_letter,car_brand_name,car_model_series,car_model_name,car_type_series,car_type_name,car_made_country
  	,car_technology,car_vehicle_class,car_engine_capacity,car_transmission
@@ -48,12 +53,14 @@
    <sql id="Marked_Brand_Type_Column_List" >
  	t.car_brand_type_id,t.car_first_letter,t.car_brand_name,t.car_model_series,t.car_model_name
   </sql>
+
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 
     <include refid="Base_Column_List" />,
     <include refid="Blob_Column_List" />
     from ezc_car_brand
     where car_brand_name = #{carBrandName,jdbcType=VARCHAR}
+
   </select>
   
   <select id="selectAll" resultMap="ResultMapWithBLOBs" >
@@ -81,6 +88,7 @@
  	order by b.car_brand_first_letter asc
   </select>
   
+
   <insert id="insertSelective" parameterType="com.gred.easy_car.web.entity.CarBrand" >
     insert into ezc_car_brand
     <trim prefix="(" suffix=")" suffixOverrides="," >
@@ -106,8 +114,10 @@
     update ezc_car_brand
     <set >
       
+
       <if test="carBrandIconPicName != null" >
         car_brand_icon_pic_name = #{carBrandIconPicName,jdbcType=LONGVARBINARY},
+
       </if>
     </set>
     where car_brand_name = #{carBrandName,jdbcType=VARCHAR}

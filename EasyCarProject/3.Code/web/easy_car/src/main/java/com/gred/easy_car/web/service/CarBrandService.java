@@ -9,7 +9,9 @@
 package com.gred.easy_car.web.service;
 
 import com.gred.easy_car.web.entity.CarBrand;
+
 import com.gred.easy_car.web.entity.JsonResult;
+
 
 /**
  * @ClassName: CarBrandService   
@@ -20,6 +22,7 @@ import com.gred.easy_car.web.entity.JsonResult;
  */
 public interface CarBrandService extends BaseService<CarBrand, String>{
 
+
 	/**
 	 * @Title: listCarBrandInfo   
 	 * @Description: 获取车品牌以及其下属车型业务实现类  
@@ -28,5 +31,6 @@ public interface CarBrandService extends BaseService<CarBrand, String>{
 	 * @throws   
 	 */
 	JsonResult<CarBrand> listCarBrandInfo();
+
 
 }
