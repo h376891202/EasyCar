@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#fff5f5f5">
+
+    <include
+        android:layout_width="wrap_content"
+        android:layout_height="53.33dip"
+        layout="@layout/actionbar_without_icon_center_text" />
+
+    <TextView
+        android:id="@+id/searchCity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="22.66dip"
+        android:layout_marginTop="10dip"
+        android:textSize="20sp"
+        android:textColor="#ff777777"
+        android:text="@string/choose_service_city_message"/>
+
+    <TextView
+        android:layout_width="67.33dip"
+        android:layout_height="33.33dip"
+        android:layout_marginLeft="22.66dip"
+        android:layout_marginTop="13dip"
+        android:background="@drawable/current_city_bg"
+        android:gravity="center_vertical"
+        android:paddingLeft="10dip"
+        android:text="成都"
+        android:textColor="#ff666666"
+        android:textSize="20sp" />
+
+	<include layout="@layout/common_city_layout" 
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"/>
+
+	<com.gred.easy_car.car_owner.view.AmazingListView
+	    android:id="@+id/choose_city_listview"
+	    android:layout_width="match_parent"
+	    android:layout_height="0dip"
+	    android:layout_weight="1"
+	    android:layout_marginTop="20dip"/>
+
+</LinearLayout>

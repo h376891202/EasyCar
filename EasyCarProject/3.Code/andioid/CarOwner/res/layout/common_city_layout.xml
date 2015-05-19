@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <include
+        android:id="@+id/common_city_1"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="22.66dip"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_marginTop="12dip"
+        layout="@layout/item_city_layout" />
+    <include
+        android:id="@+id/common_city_2"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="30dip"
+        android:layout_toRightOf="@id/common_city_1"
+                android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_marginTop="12dip"
+        layout="@layout/item_city_layout" />
+    <include
+        android:id="@+id/common_city_3"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="30dip"
+        android:layout_toRightOf="@id/common_city_2"
+                android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_marginTop="12dip"
+        layout="@layout/item_city_layout" />
+    <include
+        android:id="@+id/common_city_4"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="22.66dip"
+        android:layout_below="@id/common_city_1"
+                android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_marginTop="12dip"
+        layout="@layout/item_city_layout" />
+    <include
+        android:id="@+id/common_city_5"
+        android:layout_below="@id/common_city_1"
+        android:layout_marginLeft="30dip"
+        android:layout_toRightOf="@id/common_city_4"
+                android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_marginTop="12dip"
+        layout="@layout/item_city_layout" />
+    <include
+        android:id="@+id/common_city_6"
+        android:layout_below="@id/common_city_1"
+        android:layout_marginLeft="30dip"
+        android:layout_toRightOf="@id/common_city_5"
+                android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_marginTop="12dip"
+        layout="@layout/item_city_layout" />
+    <include
+        android:id="@+id/common_city_7"
+       	android:layout_alignParentLeft="true"
+       	android:layout_marginLeft="22.66dip"
+        android:layout_below="@id/common_city_4"
+                android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_marginTop="12dip"
+        layout="@layout/item_city_layout" />
+    <include
+        android:id="@+id/common_city_8"
+        android:layout_below="@id/common_city_4"
+        android:layout_toRightOf="@id/common_city_7"
+                android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_marginLeft="30dip"
+        android:layout_marginTop="12dip"
+        layout="@layout/item_city_layout" />
+    <include
+        android:id="@+id/common_city_9"
+        android:layout_below="@id/common_city_4"
+        android:layout_toRightOf="@id/common_city_8"
+                android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_marginLeft="30dip"
+        android:layout_marginTop="12dip"
+        layout="@layout/item_city_layout" />
+    <include
+        android:id="@+id/common_city_10"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@id/common_city_7"
+                android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_marginLeft="22.66dip"
+        android:layout_marginTop="12dip"
+        layout="@layout/item_city_layout" />
+    <include
+        android:id="@+id/common_city_11"
+        android:layout_below="@id/common_city_7"
+        android:layout_toRightOf="@id/common_city_10"
+                android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_marginLeft="30dip"
+        android:layout_marginTop="12dip"
+        layout="@layout/item_city_layout" />
+    <include
+        android:id="@+id/common_city_12"
+        android:layout_below="@id/common_city_7"
+        android:layout_toRightOf="@id/common_city_11"
+                android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_marginLeft="30dip"
+        android:layout_marginTop="12dip"
+        layout="@layout/item_city_layout" />
+
+</RelativeLayout>
